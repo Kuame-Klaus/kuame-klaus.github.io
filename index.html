@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Eric Asiedu-Akrofi — Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper: #FAFAF8;
+    --paper-dim: #F1F0EA;
+    --ink: #16211C;
+    --accent: #2F5233;
+    --gold: #A67C00;
+    --line: #D9D6CC;
+    --muted: #6B6B62;
+  }
+
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body{
+    margin:0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    html{ scroll-behavior:auto; }
+    *{ animation: none !important; transition: none !important; }
+  }
+
+  a { color: inherit; }
+  a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+
+  .wrap{
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+
+  /* ---------- Header ---------- */
+  header.site{
+    padding: 28px 0 20px;
+    border-bottom: 1px solid var(--line);
+  }
+  header.site .wrap{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+  }
+  .mark{
+    font-family:'IBM Plex Mono', monospace;
+    font-size: 13px;
+    letter-spacing: 0.04em;
+    color: var(--muted);
+  }
+  .mark strong{ color: var(--ink); }
+  nav.site a{
+    font-family:'IBM Plex Mono', monospace;
+    font-size: 13px;
+    text-decoration:none;
+    margin-left: 20px;
+    color: var(--muted);
+    border-bottom: 1px solid transparent;
+    padding-bottom: 2px;
+    transition: border-color .15s ease, color .15s ease;
+  }
+  nav.site a:hover{ color: var(--ink); border-color: var(--accent); }
+
+  /* ---------- Hero ---------- */
+  .hero{
+    padding: 64px 0 48px;
+  }
+  .status-line{
+    font-family:'IBM Plex Mono', monospace;
+    font-size: 12.5px;
+    color: var(--muted);
+    display:flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-bottom: 22px;
+  }
+  .status-line span:not(:last-child)::after{
+    content: "·";
+    margin-left: 10px;
+    color: var(--line);
+  }
+  h1.headline{
+    font-family: 'Fraunces', serif;
+    font-weight: 500;
+    font-size: clamp(2.1rem, 5vw, 3.2rem);
+    line-height: 1.12;
+    margin: 0 0 20px;
+    letter-spacing: -0.01em;
+  }
+  h1.headline em{
+    font-style: italic;
+    color: var(--accent);
+  }
+  p.lede{
+    font-size: 17px;
+    color: #303B31;
+    max-width: 58ch;
+    margin: 0 0 28px;
+  }
+  .hero-links{
+    display:flex;
+    gap: 18px;
+    flex-wrap: wrap;
+  }
+  .hero-links a{
+    font-family:'IBM Plex Mono', monospace;
+    font-size: 13px;
+    text-decoration:none;
+    padding: 9px 16px;
+    border: 1px solid var(--ink);
+    border-radius: 2px;
+    transition: background .15s ease, color .15s ease;
+  }
+  .hero-links a.primary{
+    background: var(--ink);
+    color: var(--paper);
+  }
+  .hero-links a.primary:hover{ background: var(--accent); border-color: var(--accent); }
+  .hero-links a:not(.primary):hover{ background: var(--paper-dim); }
+
+  /* ---------- Section labels ---------- */
+  .section{
+    padding: 56px 0;
+    border-top: 1px solid var(--line);
+  }
+  .section-label{
+    font-family:'IBM Plex Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin: 0 0 6px;
+  }
+  h2.section-title{
+    font-family: 'Fraunces', serif;
+    font-weight: 500;
+    font-size: 1.7rem;
+    margin: 0 0 28px;
+  }
+
+  /* ---------- About ---------- */
+  .about-grid{
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
+  .about-text p{ margin: 0 0 16px; color: #2B342E; }
+  .about-text p:last-child{ margin-bottom: 0; }
+
+  .stack{
+    display:flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 22px;
+  }
+  .stack span{
+    font-family:'IBM Plex Mono', monospace;
+    font-size: 12px;
+    padding: 5px 10px;
+    background: var(--paper-dim);
+    border: 1px solid var(--line);
+    border-radius: 2px;
+    color: #3A4238;
+  }
+
+  /* ---------- Projects: workpaper index ---------- */
+  .ledger{
+    border-top: 1px solid var(--ink);
+  }
+  .ledger-head{
+    display:grid;
+    grid-template-columns: 64px 1fr 110px 24px;
+    gap: 14px;
+    font-family:'IBM Plex Mono', monospace;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--muted);
+    padding: 10px 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .ledger-row{
+    display: grid;
+    grid-template-columns: 64px 1fr 110px 24px;
+    gap: 14px;
+    align-items: start;
+    padding: 18px 0;
+    border-bottom: 1px solid var(--line);
+    text-decoration: none;
+    color: var(--ink);
+    transition: background .15s ease;
+  }
+  .ledger-row:hover{ background: var(--paper-dim); }
+  .ref{
+    font-family:'IBM Plex Mono', monospace;
+    font-size: 12.5px;
+    color: var(--gold);
+    padding-top: 2px;
+  }
+  .row-main .name{
+    font-family: 'Fraunces', serif;
+    font-weight: 500;
+    font-size: 1.05rem;
+    margin: 0 0 4px;
+  }
+  .row-main .desc{
+    font-size: 14px;
+    color: var(--muted);
+    margin: 0;
+    max-width: 52ch;
+  }
+  .meta{
+    font-family:'IBM Plex Mono', monospace;
+    font-size: 11.5px;
+    color: var(--muted);
+    text-align: right;
+    padding-top: 3px;
+    line-height: 1.5;
+  }
+  .arrow{
+    font-family:'IBM Plex Mono', monospace;
+    color: var(--muted);
+    padding-top: 2px;
+    transition: transform .15s ease, color .15s ease;
+  }
+  .ledger-row:hover .arrow{ transform: translateX(3px); color: var(--accent); }
+
+  .ledger-state{
+    font-family:'IBM Plex Mono', monospace;
+    font-size: 13px;
+    color: var(--muted);
+    padding: 20px 0;
+  }
+
+  @media (max-width: 560px){
+    .ledger-head{ grid-template-columns: 40px 1fr 20px; }
+    .ledger-head .col-meta{ display:none; }
+    .ledger-row{ grid-template-columns: 40px 1fr 20px; }
+    .meta{ display:none; }
+  }
+
+  /* ---------- Footer ---------- */
+  footer.site{
+    padding: 40px 0 60px;
+    border-top: 1px solid var(--line);
+  }
+  footer.site .wrap{
+    display:flex;
+    justify-content:space-between;
+    align-items:baseline;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  footer.site .foot-links a{
+    font-family:'IBM Plex Mono', monospace;
+    font-size: 13px;
+    text-decoration:none;
+    color: var(--muted);
+    margin-left: 18px;
+  }
+  footer.site .foot-links a:hover{ color: var(--accent); }
+  footer.site small{
+    font-family:'IBM Plex Mono', monospace;
+    font-size: 12px;
+    color: var(--muted);
+  }
+
+  /* Reveal on scroll */
+  .reveal{
+    opacity: 0;
+    transform: translateY(10px);
+    transition: opacity .5s ease, transform .5s ease;
+  }
+  .reveal.is-visible{ opacity: 1; transform: none; }
+</style>
+</head>
+<body>
+
+<header class="site">
+  <div class="wrap">
+    <div class="mark"><strong>EAA</strong> / portfolio</div>
+    <nav class="site">
+      <a href="#about">About</a>
+      <a href="#projects">Projects</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap">
+    <div class="status-line">
+      <span>Accra, Ghana</span>
+      <span>Senior Analyst, Assurance &amp; Data-Tech Risk</span>
+      <span id="repo-count">16 public repos</span>
+    </div>
+    <h1 class="headline">I turn <em>numbers and systems</em><br>into things people can trust.</h1>
+    <p class="lede">I audit enterprise systems by day, and build financial models, dashboards, and analysis tools on the side. This page is a running record of both.</p>
+    <div class="hero-links">
+      <a class="primary" href="#projects">View projects</a>
+      <a href="https://github.com/Kuame-Klaus" target="_blank" rel="noopener">GitHub ↗</a>
+      <a href="https://www.linkedin.com/in/eric-asiedu-akrofi-589b1815b" target="_blank" rel="noopener">LinkedIn ↗</a>
+    </div>
+  </div>
+</section>
+
+<section class="section reveal" id="about">
+  <div class="wrap">
+    <p class="section-label">Background</p>
+    <h2 class="section-title">What I do</h2>
+    <div class="about-grid">
+      <div class="about-text">
+        <p>I'm a Senior Analyst at EY Ghana, working across Assurance and Data &amp; Technology Risk. Most of my engagements involve testing and reviewing enterprise systems, banking cores, and ERPs across multiple African countries.</p>
+        <p>Outside client work, I spend a lot of time in financial modelling and equity research, building models for M&amp;A scenarios, IPOs, and loan structures, mostly with a Ghanaian and West African context in mind.</p>
+        <p>I'm also from Larteh in the Akuapem hills, and I've been looking into ways to help preserve local heritage there, including the idea of a small cultural center for the town.</p>
+        <div class="stack" aria-label="Tools and systems">
+          <span>SAP S/4HANA</span>
+          <span>Oracle</span>
+          <span>Flexcube</span>
+          <span>Finacle</span>
+          <span>Calypso</span>
+          <span>T24</span>
+          <span>Alteryx</span>
+          <span>EY Helix</span>
+          <span>Power BI</span>
+          <span>Python</span>
+          <span>SQL</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section reveal" id="projects">
+  <div class="wrap">
+    <p class="section-label">Workpaper Index</p>
+    <h2 class="section-title">Projects</h2>
+    <div class="ledger-head">
+      <div>Ref</div>
+      <div>Project</div>
+      <div class="col-meta">Updated</div>
+      <div></div>
+    </div>
+    <div class="ledger" id="ledger">
+      <p class="ledger-state">Loading from GitHub…</p>
+    </div>
+  </div>
+</section>
+
+<footer class="site" id="contact">
+  <div class="wrap">
+    <small>© <span id="year"></span> Eric Asiedu-Akrofi</small>
+    <div class="foot-links">
+      <a href="https://github.com/Kuame-Klaus" target="_blank" rel="noopener">GitHub</a>
+      <a href="https://www.linkedin.com/in/eric-asiedu-akrofi-589b1815b" target="_blank" rel="noopener">LinkedIn</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  // ---- Reveal on scroll ----
+  const revealEls = document.querySelectorAll('.reveal');
+  if ('IntersectionObserver' in window){
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('is-visible'); });
+    }, { threshold: 0.12 });
+    revealEls.forEach(el => io.observe(el));
+  } else {
+    revealEls.forEach(el => el.classList.add('is-visible'));
+  }
+
+  // ---- Fetch repos live from GitHub ----
+  const GH_USER = 'Kuame-Klaus';
+  const ledger = document.getElementById('ledger');
+  const repoCountEl = document.getElementById('repo-count');
+
+  function fmtDate(iso){
+    const d = new Date(iso);
+    return d.toLocaleDateString('en-GB', { year:'numeric', month:'short' });
+  }
+
+  function refCode(i){
+    return 'WP-' + String(i + 1).padStart(2, '0');
+  }
+
+  fetch(`https://api.github.com/users/${GH_USER}/repos?sort=updated&per_page=100`)
+    .then(res => {
+      if (!res.ok) throw new Error('GitHub API error: ' + res.status);
+      return res.json();
+    })
+    .then(repos => {
+      const visible = repos.filter(r => !r.fork);
+      if (repoCountEl) repoCountEl.textContent = visible.length + ' public repos';
+
+      if (!visible.length){
+        ledger.innerHTML = '<p class="ledger-state">No public repositories found.</p>';
+        return;
+      }
+
+      ledger.innerHTML = visible.map((repo, i) => `
+        <a class="ledger-row" href="${repo.html_url}" target="_blank" rel="noopener">
+          <span class="ref">${refCode(i)}</span>
+          <span class="row-main">
+            <p class="name">${repo.name.replace(/[-_]/g, ' ')}</p>
+            <p class="desc">${repo.description ? repo.description : 'No description provided.'}</p>
+          </span>
+          <span class="meta">${repo.language ? repo.language + '<br>' : ''}${fmtDate(repo.pushed_at)}</span>
+          <span class="arrow">→</span>
+        </a>
+      `).join('');
+    })
+    .catch(err => {
+      ledger.innerHTML = `<p class="ledger-state">Couldn't load repos right now (${err.message}). <a href="https://github.com/${GH_USER}" target="_blank" rel="noopener">View on GitHub ↗</a></p>`;
+    });
+</script>
+
+</body>
+</html>
