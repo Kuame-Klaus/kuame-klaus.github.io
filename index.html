@@ -77,6 +77,26 @@
   .hero{
     padding: 64px 0 48px;
   }
+  .hero-grid{
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 40px;
+    align-items: start;
+  }
+  .hero-photo img{
+    width: 148px;
+    height: 148px;
+    object-fit: cover;
+    border-radius: 3px;
+    border: 1px solid var(--line);
+    filter: grayscale(0.15);
+    display: block;
+  }
+  @media (max-width: 640px){
+    .hero-grid{ grid-template-columns: 1fr; }
+    .hero-photo{ order: -1; }
+    .hero-photo img{ width: 96px; height: 96px; }
+  }
   .status-line{
     font-family:'IBM Plex Mono', monospace;
     font-size: 12.5px;
@@ -91,6 +111,29 @@
     margin-left: 10px;
     color: var(--line);
   }
+  p.name-tag{
+    font-family:'IBM Plex Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin: 0 0 10px;
+  }
+  .contact-line{
+    display:flex;
+    gap: 18px;
+    flex-wrap: wrap;
+    margin-top: 20px;
+  }
+  .contact-line a{
+    font-family:'IBM Plex Mono', monospace;
+    font-size: 12.5px;
+    color: var(--muted);
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    padding-bottom: 1px;
+  }
+  .contact-line a:hover{ color: var(--accent); border-color: var(--accent); }
   h1.headline{
     font-family: 'Fraunces', serif;
     font-weight: 500;
@@ -191,6 +234,9 @@
     padding: 10px 0;
     border-bottom: 1px solid var(--line);
   }
+  #projects .ledger-head, #projects .ledger-row{
+    grid-template-columns: 56px 64px 1fr 110px 24px;
+  }
   .ledger-row{
     display: grid;
     grid-template-columns: 64px 1fr 110px 24px;
@@ -201,6 +247,28 @@
     text-decoration: none;
     color: var(--ink);
     transition: background .15s ease;
+  }
+  .thumb{
+    width: 56px;
+    height: 56px;
+    border-radius: 2px;
+    border: 1px solid var(--line);
+    background: var(--paper-dim);
+    object-fit: cover;
+    display: block;
+  }
+  .thumb-placeholder{
+    width: 56px;
+    height: 56px;
+    border-radius: 2px;
+    border: 1px solid var(--line);
+    background: var(--paper-dim);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-family:'IBM Plex Mono', monospace;
+    font-size: 10px;
+    color: var(--muted);
   }
   .ledger-row:hover{ background: var(--paper-dim); }
   .ref{
@@ -249,6 +317,8 @@
     .ledger-head .col-meta{ display:none; }
     .ledger-row{ grid-template-columns: 40px 1fr 20px; }
     .meta{ display:none; }
+    #projects .ledger-head, #projects .ledger-row{ grid-template-columns: 40px 1fr 20px; }
+    .thumb, .thumb-placeholder{ display:none; }
   }
 
   /* ---------- Footer ---------- */
@@ -293,6 +363,7 @@
     <div class="mark"><strong>EAA</strong> / portfolio</div>
     <nav class="site">
       <a href="#about">About</a>
+      <a href="#experience">Experience</a>
       <a href="#projects">Projects</a>
       <a href="#contact">Contact</a>
     </nav>
@@ -300,18 +371,28 @@
 </header>
 
 <section class="hero">
-  <div class="wrap">
-    <div class="status-line">
-      <span>Accra, Ghana</span>
-      <span>Senior Analyst, Assurance &amp; Data-Tech Risk</span>
-      <span id="repo-count">16 public repos</span>
+  <div class="wrap hero-grid">
+    <div class="hero-copy">
+      <div class="status-line">
+        <span>Accra, Ghana</span>
+        <span>Senior Analyst, Assurance &amp; Data-Tech Risk</span>
+        <span id="repo-count">16 public repos</span>
+      </div>
+      <p class="name-tag">Eric Asiedu-Akrofi</p>
+      <h1 class="headline">I turn <em>numbers and systems</em><br>into things people can trust.</h1>
+      <p class="lede">I audit enterprise systems by day, and build financial models, dashboards, and analysis tools on the side. This page is a running record of both.</p>
+      <div class="hero-links">
+        <a class="primary" href="#projects">View projects</a>
+        <a href="https://github.com/Kuame-Klaus" target="_blank" rel="noopener">GitHub ↗</a>
+        <a href="https://www.linkedin.com/in/eric-asiedu-akrofi-589b1815b" target="_blank" rel="noopener">LinkedIn ↗</a>
+      </div>
+      <div class="contact-line">
+        <a href="mailto:akrofipoperic@gmail.com">akrofipoperic@gmail.com</a>
+        <a href="tel:+233557699221">+233 55 769 9221</a>
+      </div>
     </div>
-    <h1 class="headline">I turn <em>numbers and systems</em><br>into things people can trust.</h1>
-    <p class="lede">I audit enterprise systems by day, and build financial models, dashboards, and analysis tools on the side. This page is a running record of both.</p>
-    <div class="hero-links">
-      <a class="primary" href="#projects">View projects</a>
-      <a href="https://github.com/Kuame-Klaus" target="_blank" rel="noopener">GitHub ↗</a>
-      <a href="https://www.linkedin.com/in/eric-asiedu-akrofi-589b1815b" target="_blank" rel="noopener">LinkedIn ↗</a>
+    <div class="hero-photo">
+      <img src="eric-headshot.jpg" alt="Portrait of Eric Asiedu-Akrofi" width="320" height="320">
     </div>
   </div>
 </section>
@@ -338,6 +419,56 @@
           <span>Python</span>
           <span>SQL</span>
         </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section reveal" id="experience">
+  <div class="wrap">
+    <p class="section-label">Engagement History</p>
+    <h2 class="section-title">Experience</h2>
+    <div class="ledger-head">
+      <div>Ref</div>
+      <div>Role</div>
+      <div class="col-meta">Dates</div>
+      <div></div>
+    </div>
+    <div class="ledger">
+      <div class="ledger-row exp-row">
+        <span class="ref">EX-01</span>
+        <span class="row-main">
+          <p class="name">Senior Analyst, Data &amp; Technology Risk Assurance</p>
+          <p class="desc">EY Ghana — revenue assurance, data integrity testing, and forensic audit support across banking and financial services clients in Ghana, Nigeria, Rwanda, Malawi, and Tanzania. Building Alteryx workflows and leading the EY Helix Suite rollout.</p>
+        </span>
+        <span class="meta">Oct 2023 —<br>Present</span>
+      </div>
+
+      <div class="ledger-row exp-row">
+        <span class="ref">EX-02</span>
+        <span class="row-main">
+          <p class="name">Finance Manager (Part-Time)</p>
+          <p class="desc">Secondz Ventures, Takoradi — business planning, monthly financial reporting, cash-flow forecasting, and account reconciliations.</p>
+        </span>
+        <span class="meta">Jan 2024 —<br>Jun 2024</span>
+      </div>
+
+      <div class="ledger-row exp-row">
+        <span class="ref">EX-03</span>
+        <span class="row-main">
+          <p class="name">Financial Research Analyst</p>
+          <p class="desc">AgpayTech Ltd (Remote) — financial forecasting, deal-data screening, and analysis of capital expenditure, investment opportunities, and profitability metrics.</p>
+        </span>
+        <span class="meta">Sep 2023 —<br>Feb 2024</span>
+      </div>
+
+      <div class="ledger-row exp-row">
+        <span class="ref">EX-04</span>
+        <span class="row-main">
+          <p class="name">Retail Data Analyst / Acting Territory Manager</p>
+          <p class="desc">Vivo Energy Ghana — built Power BI and Power Query dashboards for sell-in/sell-out tracking, automated blocked-order resolution, and managed retailer accounts.</p>
+        </span>
+        <span class="meta">Nov 2021 —<br>Oct 2023</span>
       </div>
     </div>
   </div>
@@ -397,6 +528,44 @@
     return 'WP-' + String(i + 1).padStart(2, '0');
   }
 
+  // Decode base64 README content (UTF-8 safe) and pull out the first image reference
+  function extractFirstImage(base64Content, owner, repo, branch){
+    try {
+      const md = decodeURIComponent(escape(atob(base64Content.replace(/\n/g, ''))));
+      const match = md.match(/!\[[^\]]*\]\(([^)\s]+)\)/) || md.match(/<img[^>]+src=["']([^"'>]+)["']/i);
+      if (!match) return null;
+      let url = match[1];
+      if (/^https?:\/\//i.test(url)) return url;
+      // relative path inside the repo — resolve against raw.githubusercontent.com
+      url = url.replace(/^\.?\//, '');
+      return `https://raw.githubusercontent.com/${owner}/${repo}/${branch}/${url}`;
+    } catch (e){
+      return null;
+    }
+  }
+
+  function loadThumbnail(repo){
+    fetch(`https://api.github.com/repos/${GH_USER}/${repo.name}/readme`)
+      .then(res => res.ok ? res.json() : null)
+      .then(data => {
+        if (!data || !data.content) return;
+        const url = extractFirstImage(data.content, GH_USER, repo.name, repo.default_branch || 'main');
+        if (!url) return;
+        const cell = ledger.querySelector(`[data-thumb-for="${CSS.escape(repo.name)}"]`);
+        if (!cell) return;
+        const img = new Image();
+        img.onload = () => {
+          cell.innerHTML = '';
+          img.className = 'thumb';
+          img.alt = '';
+          cell.appendChild(img);
+        };
+        img.onerror = () => {};
+        img.src = url;
+      })
+      .catch(() => {});
+  }
+
   fetch(`https://api.github.com/users/${GH_USER}/repos?sort=updated&per_page=100`)
     .then(res => {
       if (!res.ok) throw new Error('GitHub API error: ' + res.status);
@@ -413,6 +582,7 @@
 
       ledger.innerHTML = visible.map((repo, i) => `
         <a class="ledger-row" href="${repo.html_url}" target="_blank" rel="noopener">
+          <span class="thumb-placeholder" data-thumb-for="${repo.name}">${refCode(i)}</span>
           <span class="ref">${refCode(i)}</span>
           <span class="row-main">
             <p class="name">${repo.name.replace(/[-_]/g, ' ')}</p>
@@ -422,6 +592,9 @@
           <span class="arrow">→</span>
         </a>
       `).join('');
+
+      // Progressively fetch a thumbnail from each repo's README, without blocking the list render
+      visible.forEach(loadThumbnail);
     })
     .catch(err => {
       ledger.innerHTML = `<p class="ledger-state">Couldn't load repos right now (${err.message}). <a href="https://github.com/${GH_USER}" target="_blank" rel="noopener">View on GitHub ↗</a></p>`;
