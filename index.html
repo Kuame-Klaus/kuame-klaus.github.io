@@ -1,22 +1,42 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Eric Asiedu-Akrofi — Portfolio</title>
+<title>Eric Asiedu-Akrofi | Portfolio</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
   :root{
-    --paper: #FAFAF8;
-    --paper-dim: #F1F0EA;
-    --ink: #16211C;
-    --accent: #2F5233;
-    --gold: #A67C00;
-    --stamp: #8C3B32;
-    --line: #D9D6CC;
-    --muted: #6B6B62;
+    /* brand accents — eco palette, constant across themes */
+    --orange: #1F7A4D;       /* leaf green — primary */
+    --orange-dim: #175C3A;   /* darker green — hover */
+    --indigo: #4A3423;       /* earthy brown — secondary blocks */
+    --teal: #7A8C3A;         /* moss/olive — tags, highlights */
+    --gold: #C9A227;         /* harvest gold — ticks, aspiration */
+
+    /* light theme */
+    --bg: #F7F6EE;
+    --fg: #14201A;
+    --muted: #55584A;
+    --card: #EDEBDD;
+    --line: #DBD8C4;
+
+    /* fixed background for "block" (always-dark) sections, independent of theme toggle */
+    --surface-dark: #14201A;
+
+    /* fixed — used ONLY on block sections, which are always dark regardless of theme toggle */
+    --on-dark: #F1EFE2;
+    --on-dark-muted: #C7C9B5;
+  }
+  html[data-theme="dark"]{
+    --bg: #10160F;
+    --fg: #F1EFE2;
+    --muted: #A9AC97;
+    --card: #1B2119;
+    --line: #2E362A;
+    --surface-dark: #1B2119;
   }
 
   * { box-sizing: border-box; }
@@ -24,11 +44,12 @@
 
   body{
     margin:0;
-    background: var(--paper);
-    color: var(--ink);
-    font-family: 'IBM Plex Sans', sans-serif;
+    background: var(--bg);
+    color: var(--fg);
+    font-family: 'Inter', sans-serif;
     font-size: 16px;
     line-height: 1.6;
+    transition: background .25s ease, color .25s ease;
   }
 
   @media (prefers-reduced-motion: reduce){
@@ -37,53 +58,166 @@
   }
 
   a { color: inherit; }
-  a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+  a:focus-visible, button:focus-visible { outline: 3px solid var(--orange); outline-offset: 2px; }
 
   .wrap{
-    max-width: 780px;
+    max-width: 860px;
     margin: 0 auto;
     padding: 0 24px;
   }
 
+  h1, h2, h3, .display{
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+  }
+
+  .mono{ font-family: 'JetBrains Mono', monospace; }
+
   /* ---------- Header ---------- */
   header.site{
-    padding: 28px 0 20px;
-    border-bottom: 1px solid var(--line);
+    padding: 20px 0;
     position: sticky;
     top: 0;
-    background: rgba(250,250,248,0.92);
-    backdrop-filter: blur(6px);
-    z-index: 10;
+    background: var(--bg);
+    border-bottom: 3px solid var(--fg);
+    z-index: 20;
   }
   header.site .wrap{
     display:flex;
     align-items:center;
-    justify-content:space-between;
+    gap: 14px;
   }
   .mark{
-    font-family:'IBM Plex Mono', monospace;
-    font-size: 13px;
-    letter-spacing: 0.04em;
-    color: var(--muted);
+    font-family:'Space Grotesk', sans-serif;
+    font-weight: 700;
+    font-size: 17px;
+    flex-shrink: 0;
   }
-  .mark strong{ color: var(--ink); }
-  nav.site{ display:flex; flex-wrap: wrap; }
+  .mark span{ color: var(--orange); }
+  nav.site{
+    display:flex;
+    align-items:center;
+    gap: 4px;
+    flex: 1 1 auto;
+    min-width: 0;
+    overflow-x: auto;
+    white-space: nowrap;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    mask-image: linear-gradient(to right, transparent, #000 16px, #000 calc(100% - 16px), transparent);
+  }
+  nav.site::-webkit-scrollbar{ display:none; }
   nav.site a{
-    font-family:'IBM Plex Mono', monospace;
-    font-size: 13px;
+    font-family:'JetBrains Mono', monospace;
+    font-size: 12.5px;
     text-decoration:none;
-    margin-left: 20px;
-    color: var(--muted);
-    border-bottom: 1px solid transparent;
-    padding-bottom: 2px;
-    transition: border-color .15s ease, color .15s ease;
+    padding: 6px 10px;
+    color: var(--fg);
+    border-radius: 999px;
+    transition: background .15s ease, color .15s ease;
+    flex-shrink: 0;
   }
-  nav.site a:hover{ color: var(--ink); border-color: var(--accent); }
+  nav.site a:hover{ background: var(--orange); color: #fff; }
+
+  .theme-toggle{
+    flex-shrink: 0;
+    display:flex;
+    align-items:center;
+    gap: 6px;
+    border: 2px solid var(--fg);
+    border-radius: 999px;
+    padding: 4px 4px;
+    background: transparent;
+    cursor: pointer;
+    font-family:'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--fg);
+  }
+  .theme-toggle .dot{
+    width: 20px; height: 20px;
+    border-radius: 50%;
+    background: var(--fg);
+    display:flex; align-items:center; justify-content:center;
+    color: var(--bg);
+    font-size: 11px;
+    transition: transform .2s ease;
+  }
+  html[data-theme="dark"] .theme-toggle .dot{ transform: translateX(0); }
+
+  /* ---------- GSE Ticker ---------- */
+  .ticker-wrap{
+    background: var(--indigo);
+    overflow: hidden;
+    position: relative;
+    border-bottom: 3px solid var(--fg);
+  }
+  .ticker-label{
+    position: absolute;
+    top: 0; left: 0; bottom: 0;
+    display:flex;
+    align-items:center;
+    gap: 7px;
+    padding: 0 16px;
+    background: var(--orange);
+    z-index: 2;
+    font-family:'JetBrains Mono', monospace;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    color: #fff;
+    text-transform: uppercase;
+  }
+  .ticker-label::after{
+    content:"";
+    position:absolute;
+    right:-16px; top:0; bottom:0;
+    width: 16px;
+    background: linear-gradient(to right, var(--orange), transparent);
+  }
+  .ticker-dot{
+    width: 7px; height: 7px;
+    border-radius: 50%;
+    background: #7CF2C4;
+    flex-shrink: 0;
+  }
+  .ticker-dot.closed{ background: rgba(255,255,255,0.5); }
+  .ticker-track{
+    display:flex;
+    white-space: nowrap;
+    padding: 10px 0 10px 145px;
+    animation: ticker-scroll 32s linear infinite;
+    width: max-content;
+  }
+  .ticker-wrap:hover .ticker-track{ animation-play-state: paused; }
+  @keyframes ticker-scroll{
+    from{ transform: translateX(0); }
+    to{ transform: translateX(-50%); }
+  }
+  .ticker-item{
+    font-family:'JetBrains Mono', monospace;
+    font-size: 12.5px;
+    color: #fff;
+    display:flex;
+    align-items:center;
+    gap: 7px;
+    margin-right: 30px;
+  }
+  .ticker-item .sym{ font-weight: 600; }
+  .ticker-item .px{ color: #D8D4EC; }
+  .ticker-item .chg.up{ color: #7CF2C4; }
+  .ticker-item .chg.down{ color: #FFB199; }
+  .ticker-item .chg.flat{ color: #B7B0D9; }
+  @media (prefers-reduced-motion: reduce){
+    .ticker-track{ animation: none; overflow-x: auto; padding-left: 145px; }
+  }
+  @media (max-width: 560px){
+    .ticker-label{ padding: 0 10px; font-size: 10px; }
+    .ticker-track{ padding-left: 105px; }
+  }
 
   /* ---------- Hero ---------- */
-  .hero{
-    padding: 64px 0 48px;
-  }
+  .hero{ padding: 56px 0 48px; }
   .hero-grid{
     display: grid;
     grid-template-columns: 1fr auto;
@@ -91,27 +225,27 @@
     align-items: start;
   }
   .hero-photo img{
-    width: 148px;
-    height: 148px;
+    width: 168px;
+    height: 168px;
     object-fit: cover;
-    border-radius: 3px;
-    border: 1px solid var(--line);
-    filter: grayscale(0.15);
+    border-radius: 6px;
+    border: 4px solid var(--fg);
+    box-shadow: 8px 8px 0 var(--orange);
     display: block;
   }
   @media (max-width: 640px){
     .hero-grid{ grid-template-columns: 1fr; }
     .hero-photo{ order: -1; }
-    .hero-photo img{ width: 96px; height: 96px; }
+    .hero-photo img{ width: 110px; height: 110px; box-shadow: 6px 6px 0 var(--orange); }
   }
   .status-line{
-    font-family:'IBM Plex Mono', monospace;
+    font-family:'JetBrains Mono', monospace;
     font-size: 12.5px;
     color: var(--muted);
     display:flex;
     gap: 10px;
     flex-wrap: wrap;
-    margin-bottom: 22px;
+    margin-bottom: 18px;
   }
   .status-line span:not(:last-child)::after{
     content: "·";
@@ -119,72 +253,84 @@
     color: var(--line);
   }
   p.name-tag{
-    font-family:'IBM Plex Mono', monospace;
+    display:inline-block;
+    font-family:'JetBrains Mono', monospace;
     font-size: 12px;
-    letter-spacing: 0.12em;
+    font-weight: 600;
+    letter-spacing: 0.1em;
     text-transform: uppercase;
-    color: var(--gold);
-    margin: 0 0 10px;
+    color: #fff;
+    background: var(--orange);
+    padding: 4px 10px;
+    border-radius: 3px;
+    margin: 0 0 14px;
   }
-  .contact-line{
-    display:flex;
-    gap: 18px;
-    flex-wrap: wrap;
-    margin-top: 20px;
-  }
-  .contact-line a{
-    font-family:'IBM Plex Mono', monospace;
-    font-size: 12.5px;
-    color: var(--muted);
-    text-decoration: none;
-    border-bottom: 1px solid transparent;
-    padding-bottom: 1px;
-  }
-  .contact-line a:hover{ color: var(--accent); border-color: var(--accent); }
   h1.headline{
-    font-family: 'Fraunces', serif;
-    font-weight: 500;
-    font-size: clamp(2.1rem, 5vw, 3.2rem);
-    line-height: 1.12;
+    font-size: clamp(2.3rem, 5.6vw, 3.6rem);
+    line-height: 1.06;
     margin: 0 0 20px;
-    letter-spacing: -0.01em;
   }
   h1.headline em{
-    font-style: italic;
-    color: var(--accent);
+    font-style: normal;
+    color: var(--orange);
   }
   p.lede{
-    font-size: 17px;
-    color: #303B31;
+    font-size: 17.5px;
+    color: var(--muted);
     max-width: 58ch;
     margin: 0 0 28px;
   }
   .hero-links{
     display:flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+  }
+  .hero-links a{
+    font-family:'JetBrains Mono', monospace;
+    font-size: 13px;
+    font-weight: 500;
+    text-decoration:none;
+    padding: 11px 18px;
+    border: 2px solid var(--fg);
+    border-radius: 4px;
+    transition: transform .12s ease, background .12s ease, color .12s ease;
+    display:inline-flex;
+    align-items:center;
+  }
+  .hero-links a.primary{
+    background: var(--fg);
+    color: var(--bg);
+  }
+  .hero-links a.primary:hover{ background: var(--orange); border-color: var(--orange); color:#fff; transform: translateY(-2px); }
+  .hero-links a.accent{ background: var(--orange); border-color: var(--orange); color: #fff; }
+  .hero-links a.accent:hover{ background: var(--orange-dim); transform: translateY(-2px); }
+  .hero-links a:not(.primary):not(.accent):hover{ background: var(--card); transform: translateY(-2px); }
+  .contact-line{
+    display:flex;
     gap: 18px;
     flex-wrap: wrap;
   }
-  .hero-links a{
-    font-family:'IBM Plex Mono', monospace;
-    font-size: 13px;
-    text-decoration:none;
-    padding: 9px 16px;
-    border: 1px solid var(--ink);
-    border-radius: 2px;
-    transition: background .15s ease, color .15s ease;
+  .contact-line a{
+    font-family:'JetBrains Mono', monospace;
+    font-size: 12.5px;
+    color: var(--muted);
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
   }
-  .hero-links a.primary{
-    background: var(--ink);
-    color: var(--paper);
-  }
-  .hero-links a.primary:hover{ background: var(--accent); border-color: var(--accent); }
-  .hero-links a:not(.primary):hover{ background: var(--paper-dim); }
+  .contact-line a:hover{ color: var(--orange); border-color: var(--orange); }
 
-  /* ---------- Section labels ---------- */
-  .section{
-    padding: 56px 0;
-    border-top: 1px solid var(--line);
+  /* ---------- Section shell ---------- */
+  .section{ padding: 60px 0; }
+  .section.block{
+    background: var(--surface-dark);
+    color: var(--on-dark);
+    --fg: var(--on-dark);
+    --muted: var(--on-dark-muted);
+    --card: rgba(255,255,255,0.07);
+    --line: rgba(255,255,255,0.18);
   }
+  .section.block .muted-inv{ color: var(--on-dark-muted); }
   .section-head{
     display:flex;
     align-items:flex-end;
@@ -193,54 +339,85 @@
     flex-wrap: wrap;
   }
   .section-label{
-    font-family:'IBM Plex Mono', monospace;
-    font-size: 12px;
-    letter-spacing: 0.12em;
+    display:inline-block;
+    font-family:'JetBrains Mono', monospace;
+    font-size: 11.5px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
     text-transform: uppercase;
-    color: var(--gold);
-    margin: 0 0 6px;
+    color: #fff;
+    background: var(--teal);
+    padding: 3px 9px;
+    border-radius: 3px;
+    margin: 0 0 12px;
   }
   h2.section-title{
-    font-family: 'Fraunces', serif;
-    font-weight: 500;
-    font-size: 1.7rem;
+    font-size: 1.9rem;
     margin: 0 0 28px;
   }
 
   /* ---------- About ---------- */
-  .about-grid{
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 28px;
-  }
-  .about-text p{ margin: 0 0 16px; color: #2B342E; }
+  .about-text p{ margin: 0 0 16px; }
   .about-text p:last-child{ margin-bottom: 0; }
   .about-text p.aspiration{
-    padding-left: 14px;
-    border-left: 2px solid var(--gold);
-    color: #3A4238;
-    font-style: italic;
+    padding: 14px 16px;
+    border-left: 4px solid var(--gold);
+    background: rgba(255,197,61,0.1);
+    font-style: normal;
+    border-radius: 0 4px 4px 0;
   }
-
   .stack{
     display:flex;
     flex-wrap: wrap;
     gap: 8px;
-    margin-top: 22px;
+    margin-top: 24px;
   }
   .stack span{
-    font-family:'IBM Plex Mono', monospace;
+    font-family:'JetBrains Mono', monospace;
     font-size: 12px;
-    padding: 5px 10px;
-    background: var(--paper-dim);
+    font-weight: 500;
+    padding: 6px 11px;
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.25);
+    border-radius: 999px;
+    color: inherit;
+  }
+  .pills{ display:flex; flex-wrap: wrap; gap: 8px; margin-top: 20px; }
+  .pills span{
+    font-family:'JetBrains Mono', monospace;
+    font-size: 12px;
+    font-weight: 500;
+    padding: 6px 11px;
+    background: var(--card);
     border: 1px solid var(--line);
-    border-radius: 2px;
-    color: #3A4238;
+    border-radius: 999px;
+    color: var(--fg);
   }
 
+  /* ---------- Skills matrix ---------- */
+  .skills-grid{ display: grid; gap: 18px; }
+  .skill-row{ display:grid; grid-template-columns: 200px 1fr 46px; gap: 14px; align-items:center; }
+  @media (max-width: 640px){ .skill-row{ grid-template-columns: 1fr; gap: 6px; } .skill-row .skill-pct{ text-align:left; } }
+  .skill-name{ font-family:'JetBrains Mono', monospace; font-size: 13px; font-weight: 500; }
+  .skill-bar-track{
+    height: 14px;
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    overflow: hidden;
+  }
+  .skill-bar-fill{
+    height: 100%;
+    width: 0;
+    border-radius: 999px;
+    background: linear-gradient(90deg, var(--orange), var(--gold));
+    transition: width 1.1s cubic-bezier(.2,.8,.2,1);
+  }
+  .skill-pct{ font-family:'JetBrains Mono', monospace; font-size: 12px; color: var(--muted); text-align:right; }
+
   /* ---------- Qualifications (stamped) ---------- */
-  .stamp-badge{ width: 92px; height: 92px; flex-shrink: 0; color: var(--stamp); opacity: 0.9; }
-  .stamp-badge text{ font-family: 'IBM Plex Mono', monospace; }
+  .stamp-badge{ width: 92px; height: 92px; flex-shrink: 0; color: var(--orange); }
+  .stamp-badge text{ font-family: 'JetBrains Mono', monospace; }
   .cert-grid{
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -253,40 +430,43 @@
     gap: 12px;
     align-items:flex-start;
     padding: 14px 16px;
-    border: 1px solid var(--line);
-    border-radius: 3px;
-    background: var(--paper-dim);
+    border: 2px solid var(--fg);
+    border-radius: 4px;
+    background: var(--card);
   }
   .cert-tick{
-    font-family:'IBM Plex Mono', monospace;
-    color: var(--accent);
-    font-size: 15px;
-    line-height: 1.4;
+    font-family:'JetBrains Mono', monospace;
+    color: #fff;
+    background: var(--teal);
+    width: 20px; height: 20px;
+    border-radius: 50%;
+    display:flex; align-items:center; justify-content:center;
+    font-size: 12px;
     flex-shrink: 0;
   }
   .cert-card .cert-name{
-    font-family: 'Fraunces', serif;
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 600;
     font-size: 0.98rem;
     margin: 0 0 2px;
     line-height: 1.3;
   }
   .cert-card .cert-meta{
-    font-family:'IBM Plex Mono', monospace;
+    font-family:'JetBrains Mono', monospace;
     font-size: 11.5px;
     color: var(--muted);
     margin: 0;
   }
 
-  /* ---------- Experience: workpaper ledger ---------- */
-  .ledger{
-    border-top: 1px solid var(--ink);
-  }
+  /* ---------- Experience / Projects: ledger ---------- */
+  .ledger{ border-top: 3px solid var(--fg); }
   .ledger-head{
     display:grid;
     grid-template-columns: 64px 1fr 130px 24px;
     gap: 14px;
-    font-family:'IBM Plex Mono', monospace;
+    font-family:'JetBrains Mono', monospace;
     font-size: 11px;
+    font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.08em;
     color: var(--muted);
@@ -294,7 +474,7 @@
     border-bottom: 1px solid var(--line);
   }
   #projects .ledger-head, #projects .ledger-row{
-    grid-template-columns: 56px 64px 1fr 110px 24px;
+    grid-template-columns: 56px 64px 1fr 110px 24px 28px;
   }
   .ledger-row{
     display: grid;
@@ -310,189 +490,171 @@
     border-bottom: 1px dashed var(--line);
   }
   .ledger-row.sub-row .ref{ color: var(--muted); }
-  .ledger-row.sub-row .name{ font-size: 0.95rem; }
   .ledger-row.company-row{
     padding-top: 22px;
     padding-bottom: 6px;
     border-bottom: none;
   }
   .ledger-row.company-row .name{
-    font-family:'IBM Plex Mono', monospace;
+    font-family:'JetBrains Mono', monospace;
     text-transform: uppercase;
     letter-spacing: 0.06em;
     font-size: 12.5px;
-    color: var(--stamp);
+    color: #fff;
+    background: var(--indigo);
+    display: inline-block;
+    padding: 4px 10px;
+    border-radius: 3px;
   }
-  a.ledger-row{
-    text-decoration: none;
-    color: var(--ink);
-    transition: background .15s ease;
-  }
+  a.ledger-row{ text-decoration: none; color: var(--fg); transition: background .15s ease; }
+  .proj-row{ transition: background .15s ease; }
+  .proj-row:hover{ background: var(--card); }
+  .proj-row .name-link{ text-decoration: none; color: inherit; }
+  .proj-row .arrow-link{ text-decoration: none; }
   .thumb{
-    width: 56px;
-    height: 56px;
-    border-radius: 2px;
-    border: 1px solid var(--line);
-    background: var(--paper-dim);
+    width: 56px; height: 56px;
+    border-radius: 4px;
+    border: 2px solid var(--fg);
+    background: var(--card);
     object-fit: cover;
     display: block;
   }
   .thumb-placeholder{
-    width: 56px;
-    height: 56px;
-    border-radius: 2px;
-    border: 1px solid var(--line);
-    background: var(--paper-dim);
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    font-family:'IBM Plex Mono', monospace;
+    width: 56px; height: 56px;
+    border-radius: 4px;
+    border: 2px dashed var(--line);
+    background: var(--card);
+    display:flex; align-items:center; justify-content:center;
+    font-family:'JetBrains Mono', monospace;
     font-size: 10px;
     color: var(--muted);
   }
-  a.ledger-row:hover{ background: var(--paper-dim); }
-  .ref{
-    font-family:'IBM Plex Mono', monospace;
-    font-size: 12.5px;
-    color: var(--gold);
-    padding-top: 2px;
+  a.ledger-row:hover, .ledger-row.exp-row:hover{ background: var(--card); }
+  .ref{ font-family:'JetBrains Mono', monospace; font-size: 12.5px; font-weight: 600; color: var(--orange); padding-top: 2px; }
+  .row-main .name{ font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 1.05rem; margin: 0 0 4px; }
+  .row-main .desc{ font-size: 14px; color: var(--muted); margin: 0; max-width: 54ch; }
+  .meta{ font-family:'JetBrains Mono', monospace; font-size: 11.5px; color: var(--muted); text-align: right; padding-top: 3px; line-height: 1.5; }
+  .arrow{ font-family:'JetBrains Mono', monospace; color: var(--muted); padding-top: 2px; transition: transform .15s ease, color .15s ease; }
+  .proj-row:hover .arrow{ transform: translateX(3px); color: var(--orange); }
+  .expand-btn{
+    background: none; border: 2px solid var(--fg); border-radius: 4px;
+    width: 28px; height: 28px; cursor: pointer;
+    font-family:'JetBrains Mono', monospace; font-size: 13px; color: var(--fg);
+    display:flex; align-items:center; justify-content:center;
   }
-  .row-main .name{
-    font-family: 'Fraunces', serif;
-    font-weight: 500;
-    font-size: 1.05rem;
-    margin: 0 0 4px;
+  .expand-btn:hover{ background: var(--gold); border-color: var(--gold); }
+  .case-study{
+    grid-column: 1 / -1;
+    display: none;
+    margin: 4px 0 14px;
+    padding: 14px 16px;
+    background: var(--card);
+    border-left: 4px solid var(--teal);
+    border-radius: 0 4px 4px 0;
+    font-size: 13.5px;
   }
-  .row-main .desc{
-    font-size: 14px;
-    color: var(--muted);
-    margin: 0;
-    max-width: 54ch;
-  }
-  .meta{
-    font-family:'IBM Plex Mono', monospace;
-    font-size: 11.5px;
-    color: var(--muted);
-    text-align: right;
-    padding-top: 3px;
-    line-height: 1.5;
-  }
-  .arrow{
-    font-family:'IBM Plex Mono', monospace;
-    color: var(--muted);
-    padding-top: 2px;
-    transition: transform .15s ease, color .15s ease;
-  }
-  a.ledger-row:hover .arrow{ transform: translateX(3px); color: var(--accent); }
+  .case-study.open{ display: block; }
+  .case-study p{ margin: 0 0 8px; }
+  .case-study p:last-child{ margin-bottom: 0; }
+  .case-study b{ color: var(--orange); font-family:'JetBrains Mono', monospace; font-size: 11px; text-transform: uppercase; letter-spacing: .05em; }
 
-  .ledger-state{
-    font-family:'IBM Plex Mono', monospace;
-    font-size: 13px;
-    color: var(--muted);
-    padding: 20px 0;
-  }
+  .ledger-state{ font-family:'JetBrains Mono', monospace; font-size: 13px; color: var(--muted); padding: 20px 0; }
 
   @media (max-width: 560px){
     .ledger-head{ grid-template-columns: 40px 1fr 20px; }
     .ledger-head .col-meta{ display:none; }
     .ledger-row{ grid-template-columns: 40px 1fr 20px; }
     .meta{ display:none; }
-    #projects .ledger-head, #projects .ledger-row{ grid-template-columns: 40px 1fr 20px; }
+    #projects .ledger-head, #projects .ledger-row{ grid-template-columns: 40px 1fr 20px 28px; }
     .thumb, .thumb-placeholder{ display:none; }
   }
 
   .view-all-link{
     display:inline-block;
     margin-top: 18px;
-    font-family:'IBM Plex Mono', monospace;
+    font-family:'JetBrains Mono', monospace;
     font-size: 13px;
-    color: var(--accent);
+    font-weight: 600;
+    color: var(--fg);
     text-decoration:none;
-    border-bottom: 1px solid var(--accent);
+    border-bottom: 2px solid var(--orange);
   }
 
   /* ---------- Gallery / Exhibits ---------- */
-  .exhibit-grid{
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 20px;
+  /* ---------- Project gallery: horizontal scroller (GSE-ticker style) ---------- */
+  .gallery-wrap{
+    position: relative;
+    overflow: hidden;
+    background: var(--card);
+    border-top: 3px solid var(--fg);
+    border-bottom: 3px solid var(--fg);
+    padding: 22px 0;
   }
-  @media (max-width: 640px){ .exhibit-grid{ grid-template-columns: 1fr; } }
-  .exhibit-card{
+  .gallery-track{
+    display:flex;
+    gap: 18px;
+    width: max-content;
+    padding-left: 24px;
+    animation: gallery-scroll 55s linear infinite;
+  }
+  .gallery-wrap:hover .gallery-track,
+  .gallery-track.paused{ animation-play-state: paused; }
+  @keyframes gallery-scroll{
+    from{ transform: translateX(0); }
+    to{ transform: translateX(-50%); }
+  }
+  @media (prefers-reduced-motion: reduce){
+    .gallery-track{ animation: none; overflow-x: auto; }
+  }
+  .gallery-card{
+    flex: 0 0 auto;
+    width: 300px;
     display:block;
     text-decoration:none;
-    color: var(--ink);
-    border: 1px solid var(--line);
-    border-radius: 3px;
+    color: var(--fg);
+    border: 3px solid var(--fg);
+    border-radius: 6px;
     overflow: hidden;
-    background: var(--paper-dim);
-    transition: border-color .15s ease, transform .15s ease;
+    background: var(--bg);
+    transition: transform .15s ease, box-shadow .15s ease;
   }
-  .exhibit-card:hover{ border-color: var(--accent); transform: translateY(-2px); }
-  .exhibit-img-wrap{
+  .gallery-card:hover{ transform: translateY(-4px); box-shadow: 6px 6px 0 var(--orange); }
+  .gallery-card .g-img-wrap{
     aspect-ratio: 16/10;
     overflow: hidden;
-    background: var(--paper-dim);
-    border-bottom: 1px solid var(--line);
+    background: var(--line);
+    border-bottom: 3px solid var(--fg);
+    display:flex;
   }
-  .exhibit-img-wrap img{
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
+  .gallery-card .g-img-wrap img{ width: 100%; height: 100%; object-fit: cover; display:block; flex: 1 1 0; min-width: 0; }
+  .gallery-card .g-img-wrap.multi img{ border-right: 2px solid var(--fg); }
+  .gallery-card .g-img-wrap.multi img:last-child{ border-right: none; }
+  .gallery-card .g-body{ padding: 12px 14px; }
+  .gallery-card .g-tag{
+    display:inline-block;
+    font-family:'JetBrains Mono', monospace;
+    font-size: 10px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase;
+    color: #fff; background: var(--teal); padding: 2px 7px; border-radius: 3px;
+    margin: 0 0 7px;
   }
-  .exhibit-body{ padding: 14px 16px; }
-  .exhibit-tag{
-    font-family:'IBM Plex Mono', monospace;
-    font-size: 10.5px;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: var(--stamp);
-    margin: 0 0 6px;
-  }
-  .exhibit-body .name{
-    font-family: 'Fraunces', serif;
-    font-size: 1rem;
-    margin: 0 0 4px;
-  }
-  .exhibit-body .cap{
-    font-size: 13px;
-    color: var(--muted);
-    margin: 0;
-  }
+  .gallery-card .g-name{ font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 0.92rem; margin: 0 0 4px; line-height:1.25; }
+  .gallery-card .g-cap{ font-size: 12px; color: var(--muted); margin: 0; }
 
   /* ---------- Footer ---------- */
   footer.site{
-    padding: 40px 0 60px;
-    border-top: 1px solid var(--line);
+    padding: 44px 0 60px;
+    background: var(--surface-dark);
+    color: var(--on-dark);
   }
-  footer.site .wrap{
-    display:flex;
-    justify-content:space-between;
-    align-items:baseline;
-    flex-wrap: wrap;
-    gap: 12px;
-  }
+  footer.site .wrap{ display:flex; justify-content:space-between; align-items:baseline; flex-wrap: wrap; gap: 12px; }
   footer.site .foot-links a{
-    font-family:'IBM Plex Mono', monospace;
-    font-size: 13px;
-    text-decoration:none;
-    color: var(--muted);
-    margin-left: 18px;
+    font-family:'JetBrains Mono', monospace; font-size: 13px; text-decoration:none;
+    color: var(--on-dark-muted); margin-left: 18px;
   }
-  footer.site .foot-links a:hover{ color: var(--accent); }
-  footer.site small{
-    font-family:'IBM Plex Mono', monospace;
-    font-size: 12px;
-    color: var(--muted);
-  }
+  footer.site .foot-links a:hover{ color: var(--orange); }
+  footer.site small{ font-family:'JetBrains Mono', monospace; font-size: 12px; color: var(--on-dark-muted); }
 
-  /* Reveal on scroll */
-  .reveal{
-    opacity: 0;
-    transform: translateY(10px);
-    transition: opacity .5s ease, transform .5s ease;
-  }
+  .reveal{ opacity: 0; transform: translateY(12px); transition: opacity .5s ease, transform .5s ease; }
   .reveal.is-visible{ opacity: 1; transform: none; }
 </style>
 </head>
@@ -500,31 +662,48 @@
 
 <header class="site">
   <div class="wrap">
-    <div class="mark"><strong>EAA</strong> / portfolio</div>
+    <div class="mark">EAA <span>/</span> portfolio</div>
     <nav class="site">
       <a href="#about">About</a>
+      <a href="#skills">Skills</a>
+      <a href="#education">Education</a>
       <a href="#qualifications">Qualifications</a>
       <a href="#experience">Experience</a>
       <a href="#projects">Projects</a>
       <a href="#gallery">Gallery</a>
+      <a href="#sankofa">Sankofa</a>
       <a href="#contact">Contact</a>
     </nav>
+    <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
+      <span class="dot" id="theme-dot">☀</span>
+      <span id="theme-label">LIGHT</span>
+    </button>
   </div>
 </header>
+
+<div class="ticker-wrap" aria-label="Ghana Stock Exchange live prices">
+  <div class="ticker-label">
+    <span class="ticker-dot" id="ticker-dot"></span>
+    <span id="ticker-label-text">GSE</span>
+  </div>
+  <div class="ticker-track" id="ticker-track">
+    <span class="ticker-item">Loading GSE prices…</span>
+  </div>
+</div>
 
 <section class="hero">
   <div class="wrap hero-grid">
     <div class="hero-copy">
       <div class="status-line">
         <span>Accra, Ghana</span>
-        <span>Senior Analyst, Assurance &amp; Data-Tech Risk</span>
-        <span id="repo-count">17 public repos</span>
+        <span>Senior Analyst, Data &amp; Technology Risk Assurance</span>
       </div>
       <p class="name-tag">Eric Asiedu-Akrofi</p>
       <h1 class="headline">I turn <em>numbers and systems</em><br>into things people can trust.</h1>
       <p class="lede">I audit enterprise systems by day, and build financial models, dashboards, and analysis tools on the side. This page is a running record of both.</p>
       <div class="hero-links">
         <a class="primary" href="#projects">View projects</a>
+        <a class="accent" href="/assets/Eric-Asiedu-Akrofi-CV.pdf" target="_blank" rel="noopener">Download CV ↓</a>
         <a href="https://github.com/Kuame-Klaus" target="_blank" rel="noopener">GitHub ↗</a>
         <a href="https://www.linkedin.com/in/eric-asiedu-akrofi-589b1815b" target="_blank" rel="noopener">LinkedIn ↗</a>
       </div>
@@ -539,34 +718,105 @@
   </div>
 </section>
 
-<section class="section reveal" id="about">
+<section class="section block reveal" id="about">
   <div class="wrap">
     <p class="section-label">Background</p>
     <h2 class="section-title">What I do</h2>
-    <div class="about-grid">
-      <div class="about-text">
-        <p>I'm a Senior Analyst at EY Ghana, working across Assurance and Data &amp; Technology Risk. Most of my engagements involve testing and reviewing enterprise systems, banking cores, and ERPs for financial institutions across Ghana, Nigeria, Rwanda, Malawi, Tanzania, and Sierra Leone.</p>
-        <p>Outside client work, I spend a lot of time in financial modelling and equity research — building models for M&amp;A scenarios, IPOs, and loan structures, mostly with a Ghanaian and West African context in mind.</p>
-        <p class="aspiration">I'm originally from Larteh, in the Akuapem hills, and it's a place I'd like to give something back to. One idea I keep returning to is founding a small cultural heritage foundation there — still early days, but it's a direction I'm actively exploring.</p>
-        <div class="stack" aria-label="Tools and systems">
-          <span>SAP S/4HANA</span>
-          <span>Oracle</span>
-          <span>Flexcube</span>
-          <span>Finacle</span>
-          <span>Calypso</span>
-          <span>T24</span>
-          <span>Alteryx</span>
-          <span>EY Helix</span>
-          <span>Power BI</span>
-          <span>Python</span>
-          <span>SQL</span>
+    <div class="about-text">
+      <p>I'm a Senior Analyst at EY Ghana, working across Assurance and Data &amp; Technology Risk. Most of my engagements involve testing and reviewing enterprise systems, banking cores, and ERPs for financial institutions across Ghana, Nigeria, Rwanda, Malawi, Tanzania, and Sierra Leone.</p>
+      <p class="muted-inv">Outside client work, I spend a lot of time in financial modelling and equity research, building models for M&amp;A scenarios, IPOs, and loan structures, mostly with a Ghanaian and West African context in mind. I'm working toward bridging assurance grade rigor with financial modelling and equity research, with an eye on CFO track and advisory work.</p>
+      <p class="muted-inv">I'm also actively learning IT audit, fintech, forensic accounting and fraud investigations, investing, and new technology, areas I see as a natural extension of the work I already do.</p>
+      <div class="stack" aria-label="Tools and systems">
+        <span>SAP S/4HANA</span>
+        <span>Oracle</span>
+        <span>Flexcube</span>
+        <span>Finacle</span>
+        <span>Calypso</span>
+        <span>T24</span>
+        <span>Alteryx</span>
+        <span>EY Helix</span>
+        <span>Power BI</span>
+        <span>Python</span>
+        <span>SQL</span>
+        <span>Excel</span>
+        <span>Power Query</span>
+        <span>DAX</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section reveal" id="skills">
+  <div class="wrap">
+    <p class="section-label">Skills Matrix</p>
+    <h2 class="section-title">Where I'm strongest</h2>
+    <div class="skills-grid">
+      <div class="skill-row">
+        <span class="skill-name">Accounting &amp; Finance</span>
+        <div class="skill-bar-track"><div class="skill-bar-fill" data-pct="90"></div></div>
+        <span class="skill-pct">90%</span>
+      </div>
+      <div class="skill-row">
+        <span class="skill-name">Financial Modelling</span>
+        <div class="skill-bar-track"><div class="skill-bar-fill" data-pct="87"></div></div>
+        <span class="skill-pct">87%</span>
+      </div>
+      <div class="skill-row">
+        <span class="skill-name">Assurance &amp; Audit</span>
+        <div class="skill-bar-track"><div class="skill-bar-fill" data-pct="92"></div></div>
+        <span class="skill-pct">92%</span>
+      </div>
+      <div class="skill-row">
+        <span class="skill-name">Data &amp; Technology Risk</span>
+        <div class="skill-bar-track"><div class="skill-bar-fill" data-pct="88"></div></div>
+        <span class="skill-pct">88%</span>
+      </div>
+      <div class="skill-row">
+        <span class="skill-name">Business Analysis</span>
+        <div class="skill-bar-track"><div class="skill-bar-fill" data-pct="85"></div></div>
+        <span class="skill-pct">85%</span>
+      </div>
+      <div class="skill-row">
+        <span class="skill-name">Equity Research</span>
+        <div class="skill-bar-track"><div class="skill-bar-fill" data-pct="76"></div></div>
+        <span class="skill-pct">76%</span>
+      </div>
+      <div class="skill-row">
+        <span class="skill-name">Account Management</span>
+        <div class="skill-bar-track"><div class="skill-bar-fill" data-pct="78"></div></div>
+        <span class="skill-pct">78%</span>
+      </div>
+      <div class="skill-row">
+        <span class="skill-name">Enterprise Systems</span>
+        <div class="skill-bar-track"><div class="skill-bar-fill" data-pct="82"></div></div>
+        <span class="skill-pct">82%</span>
+      </div>
+      <div class="skill-row">
+        <span class="skill-name">Data Analytics</span>
+        <div class="skill-bar-track"><div class="skill-bar-fill" data-pct="85"></div></div>
+        <span class="skill-pct">85%</span>
+      </div>
+          </div>
+  </div>
+</section>
+
+<section class="section block reveal" id="education">
+  <div class="wrap">
+    <p class="section-label">Education</p>
+    <h2 class="section-title">Academic Foundation</h2>
+    <div class="cert-grid" style="grid-template-columns:1fr;max-width:420px;">
+      <div class="cert-card">
+        <span class="cert-tick">🎓</span>
+        <div>
+          <p class="cert-name">BSc Business Administration (Accounting), First Class Honours</p>
+          <p class="cert-meta">Kwame Nkrumah University of Science and Technology (KNUST)</p>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<section class="section reveal" id="qualifications">
+<section class="section block reveal" id="qualifications">
   <div class="wrap">
     <div class="section-head">
       <div>
@@ -578,12 +828,12 @@
           <path id="stampcircle" d="M 50,50 m -36,0 a 36,36 0 1,1 72,0 a 36,36 0 1,1 -72,0" />
         </defs>
         <g transform="rotate(-8 50 50)">
-          <circle cx="50" cy="50" r="44" fill="none" stroke="currentColor" stroke-width="1.5"/>
+          <circle cx="50" cy="50" r="44" fill="none" stroke="currentColor" stroke-width="2"/>
           <circle cx="50" cy="50" r="38" fill="none" stroke="currentColor" stroke-width="1"/>
           <text font-size="7.6" letter-spacing="1.5" fill="currentColor">
             <textPath href="#stampcircle" startOffset="2">CHARTERED · VERIFIED · ICAG</textPath>
           </text>
-          <text x="50" y="47" text-anchor="middle" font-size="20" fill="currentColor" font-weight="600">✓</text>
+          <text x="50" y="47" text-anchor="middle" font-size="20" fill="currentColor" font-weight="700">✓</text>
           <text x="50" y="62" text-anchor="middle" font-size="7" letter-spacing="1" fill="currentColor">EAA</text>
         </g>
       </svg>
@@ -593,27 +843,27 @@
         <span class="cert-tick">✓</span>
         <div>
           <p class="cert-name">Associate Chartered Accountant (CA)</p>
-          <p class="cert-meta">Institute of Chartered Accountants, Ghana (ICAG) — 2023</p>
+          <p class="cert-meta">Institute of Chartered Accountants, Ghana (ICAG), 2023</p>
         </div>
       </div>
       <div class="cert-card">
         <span class="cert-tick">✓</span>
         <div>
           <p class="cert-name">Financial Modelling &amp; Valuation Analyst (FMVA)®</p>
-          <p class="cert-meta">Corporate Finance Institute (CFI) — 2022</p>
+          <p class="cert-meta">Corporate Finance Institute (CFI), 2022</p>
         </div>
       </div>
       <div class="cert-card">
         <span class="cert-tick">✓</span>
         <div>
           <p class="cert-name">Business Intelligence &amp; Data Analyst (BIDA)™</p>
-          <p class="cert-meta">Corporate Finance Institute (CFI) — 2022</p>
+          <p class="cert-meta">Corporate Finance Institute (CFI), 2022</p>
         </div>
       </div>
       <div class="cert-card">
         <span class="cert-tick">✓</span>
         <div>
-          <p class="cert-name">Alteryx Designer — Core &amp; Advanced</p>
+          <p class="cert-name">Alteryx Designer (Core &amp; Advanced)</p>
           <p class="cert-meta">Alteryx Advanced Certification</p>
         </div>
       </div>
@@ -621,7 +871,7 @@
         <span class="cert-tick">✓</span>
         <div>
           <p class="cert-name">Forensic Accounting &amp; Fraud Examination</p>
-          <p class="cert-meta">Coursera / West Virginia University — 2024</p>
+          <p class="cert-meta">Coursera / West Virginia University, 2024</p>
         </div>
       </div>
       <div class="cert-card">
@@ -634,15 +884,15 @@
       <div class="cert-card">
         <span class="cert-tick">✓</span>
         <div>
-          <p class="cert-name">Data Analyst with R — Associate</p>
-          <p class="cert-meta">DataCamp — 2023</p>
+          <p class="cert-name">Data Analyst with R, Associate</p>
+          <p class="cert-meta">DataCamp, 2023</p>
         </div>
       </div>
       <div class="cert-card">
         <span class="cert-tick">✓</span>
         <div>
           <p class="cert-name">Fundamentals of Digital Marketing</p>
-          <p class="cert-meta">Google Digital Skills for Africa — 2019</p>
+          <p class="cert-meta">Google Digital Skills for Africa, 2019</p>
         </div>
       </div>
     </div>
@@ -663,7 +913,7 @@
 
       <div class="ledger-row company-row">
         <span class="ref"></span>
-        <span class="row-main"><p class="name">EY Ghana — Data &amp; Technology Risk Assurance</p></span>
+        <span class="row-main"><p class="name">EY Ghana, Data &amp; Technology Risk Assurance</p></span>
         <span class="meta"></span>
       </div>
       <div class="ledger-row sub-row">
@@ -691,29 +941,32 @@
         <span class="meta">Oct 2023 —<br>Sep 2024</span>
       </div>
 
+      <div class="ledger-row company-row">
+        <span class="ref"></span>
+        <span class="row-main"><p class="name">Other Roles</p></span>
+        <span class="meta"></span>
+      </div>
       <div class="ledger-row exp-row">
         <span class="ref">EX-04</span>
         <span class="row-main">
           <p class="name">Financial Research Analyst</p>
-          <p class="desc">AgpayTech Ltd, London (Remote) — financial forecasting, deal-data screening, and analysis of capital expenditure, investment opportunities, and profitability metrics.</p>
+          <p class="desc">AgpayTech Ltd, London (Remote), financial forecasting, deal-data screening, and analysis of capital expenditure, investment opportunities, and profitability metrics.</p>
         </span>
         <span class="meta">Sep 2023 —<br>Feb 2024</span>
       </div>
-
       <div class="ledger-row exp-row">
         <span class="ref">EX-05</span>
         <span class="row-main">
           <p class="name">Finance Manager (Part-Time, Volunteer)</p>
-          <p class="desc">Secondz Ventures, Takoradi — business planning, monthly financial reporting, cash-flow forecasting, and account reconciliations, alongside full-time EY work.</p>
+          <p class="desc">Secondz Ventures, Takoradi, business planning, monthly financial reporting, cash-flow forecasting, and account reconciliations, alongside full-time EY work.</p>
         </span>
         <span class="meta">Jan 2024 —<br>Jun 2024</span>
       </div>
-
       <div class="ledger-row exp-row">
         <span class="ref">EX-06</span>
         <span class="row-main">
           <p class="name">Retail Data Analyst / Acting Territory Manager</p>
-          <p class="desc">Vivo Energy Ghana — built Power BI and Power Query dashboards for sell-in/sell-out tracking, automated blocked-order resolution, and (Oct 2022–Feb 2023) managed retailer accounts as Acting Territory Manager.</p>
+          <p class="desc">Vivo Energy Ghana, built Power BI and Power Query dashboards for sell-in/sell-out tracking, automated blocked-order resolution, and (Oct 2022 to Feb 2023) managed retailer accounts as Acting Territory Manager.</p>
         </span>
         <span class="meta">Nov 2021 —<br>Oct 2023</span>
       </div>
@@ -721,10 +974,13 @@
   </div>
 </section>
 
-<section class="section reveal" id="projects">
+<section class="section block reveal" id="projects">
   <div class="wrap">
     <p class="section-label">Workpaper Index</p>
     <h2 class="section-title">Projects</h2>
+    <p class="muted-inv" style="max-width:62ch;margin:-14px 0 28px;font-size:15px;">
+      Every project here is a step toward the same goal: proving that assurance-grade rigor and financial-modelling craft can live in the same place. Tap the <span class="mono">+</span> next to any entry for the story behind it.
+    </p>
     <div class="ledger-head">
       <div>Ref</div>
       <div>Project</div>
@@ -734,75 +990,35 @@
     <div class="ledger" id="ledger">
       <p class="ledger-state">Loading from GitHub…</p>
     </div>
-    <a class="view-all-link" href="#gallery">See selected screenshots below ↓</a>
   </div>
 </section>
 
 <section class="section reveal" id="gallery">
   <div class="wrap">
     <p class="section-label">Appendix</p>
-    <h2 class="section-title">Selected Exhibits</h2>
-    <div class="exhibit-grid">
-      <a class="exhibit-card" href="https://github.com/Kuame-Klaus/Sales_MarketingDashboard" target="_blank" rel="noopener">
-        <div class="exhibit-img-wrap">
-          <img src="https://github.com/Kuame-Klaus/Sales_MarketingDashboard/assets/141528444/0d803874-8af3-4c75-9e59-25f595f44ba4" alt="Sales & Marketing Power BI dashboard, page 1" loading="lazy">
-        </div>
-        <div class="exhibit-body">
-          <p class="exhibit-tag">Exhibit A</p>
-          <p class="name">Sales &amp; Marketing Power BI Dashboard</p>
-          <p class="cap">Sales performance by product, region, and country.</p>
-        </div>
-      </a>
-      <a class="exhibit-card" href="https://github.com/Kuame-Klaus/Sales_MarketingDashboard" target="_blank" rel="noopener">
-        <div class="exhibit-img-wrap">
-          <img src="https://github.com/Kuame-Klaus/Sales_MarketingDashboard/assets/141528444/59ec489a-4db2-48a3-b487-e71a95be5cd9" alt="Sales & Marketing Power BI dashboard, page 2" loading="lazy">
-        </div>
-        <div class="exhibit-body">
-          <p class="exhibit-tag">Exhibit B</p>
-          <p class="name">Sales &amp; Marketing Power BI Dashboard</p>
-          <p class="cap">Drill-down view highlighting growth opportunities.</p>
-        </div>
-      </a>
-      <a class="exhibit-card" href="https://github.com/Kuame-Klaus/PayPoint---Corporate-Performance-Analysis-" target="_blank" rel="noopener">
-        <div class="exhibit-img-wrap">
-          <img src="https://github.com/Kuame-Klaus/PayPoint---Corporate-Performance-Analysis-/assets/141528444/04053b7e-f1c6-482a-bbc2-d8752c256571" alt="PayPoint financial model layout" loading="lazy">
-        </div>
-        <div class="exhibit-body">
-          <p class="exhibit-tag">Exhibit C</p>
-          <p class="name">PayPoint Corporate Performance Model</p>
-          <p class="cap">Model layout for a full corporate valuation build.</p>
-        </div>
-      </a>
-      <a class="exhibit-card" href="https://github.com/Kuame-Klaus/PayPoint---Corporate-Performance-Analysis-" target="_blank" rel="noopener">
-        <div class="exhibit-img-wrap">
-          <img src="https://github.com/Kuame-Klaus/PayPoint---Corporate-Performance-Analysis-/assets/141528444/8f816577-b55a-4523-bf9f-c6f678d53f82" alt="PayPoint income statement overview" loading="lazy">
-        </div>
-        <div class="exhibit-body">
-          <p class="exhibit-tag">Exhibit D</p>
-          <p class="name">PayPoint Corporate Performance Model</p>
-          <p class="cap">Income statement overview feeding the valuation.</p>
-        </div>
-      </a>
-      <a class="exhibit-card" href="https://github.com/Kuame-Klaus/Financial-Statements-in-PowerBi" target="_blank" rel="noopener">
-        <div class="exhibit-img-wrap">
-          <img src="https://github.com/Kuame-Klaus/Financial-Statements-in-PowerBi/assets/141528444/8ad34313-0c45-48df-8f30-602798787cb5" alt="Financial statements in Power BI, income statement" loading="lazy">
-        </div>
-        <div class="exhibit-body">
-          <p class="exhibit-tag">Exhibit E</p>
-          <p class="name">Financial Statements in Power BI</p>
-          <p class="cap">Income statement rebuilt as an interactive report.</p>
-        </div>
-      </a>
-      <a class="exhibit-card" href="https://github.com/Kuame-Klaus/Financial-Statements-in-PowerBi" target="_blank" rel="noopener">
-        <div class="exhibit-img-wrap">
-          <img src="https://github.com/Kuame-Klaus/Financial-Statements-in-PowerBi/assets/141528444/5d94c23c-ae04-49a7-bf82-4f9a6d1c1955" alt="Financial statements in Power BI, balance sheet" loading="lazy">
-        </div>
-        <div class="exhibit-body">
-          <p class="exhibit-tag">Exhibit F</p>
-          <p class="name">Financial Statements in Power BI</p>
-          <p class="cap">Balance sheet view with linked DAX measures.</p>
-        </div>
-      </a>
+    <h2 class="section-title">Project Gallery</h2>
+  </div>
+  <div class="gallery-wrap" aria-label="Project screenshot gallery, auto-scrolling">
+    <div class="gallery-track" id="full-gallery">
+      <span class="mono" style="padding-left:24px;">Loading gallery…</span>
+    </div>
+  </div>
+</section>
+
+<section class="section reveal" id="sankofa">
+  <div class="wrap">
+    <p class="section-label">Beyond the Desk</p>
+    <h2 class="section-title">Sankofa Pathways Foundation</h2>
+    <div class="about-text">
+      <p>This one's still on the drawing board, not yet running, but it's a real plan I'm building alongside my day job. Sankofa Pathways Foundation is a proposed Ghanaian NGO aimed at closing the career-awareness and digital-skills gap for senior high school students in rural Ghana, starting in the Eastern Region.</p>
+      <p style="color:var(--muted);">Named for the Akan principle of Sankofa, learning from the past to build a better future, the proposal outlines three programmes: career awareness campaigns bringing real professionals into schools, digital skills bootcamps, and long-term Rural IT Development Centres. Right now the priority is structuring the financial model and building relationships with founding sponsors and partners to get it off the ground.</p>
+      <div class="pills" aria-label="Foundation vision targets">
+        <span>Vision: 10 SHS schools/year</span>
+        <span>Vision: 5,000+ students reached/year</span>
+        <span>Vision: 3 Rural IT Centres by Year 3</span>
+        <span>Status: seeking founding sponsors</span>
+      </div>
+      <p style="margin-top:20px;"><a href="mailto:akrofipoperic@gmail.com?subject=Sankofa%20Pathways%20Foundation%20-%20Sponsorship%20Interest" style="color:var(--orange);font-family:'JetBrains Mono',monospace;font-size:13px;font-weight:600;text-decoration:none;border-bottom:2px solid var(--orange);">Interested in sponsoring or partnering? Get in touch →</a></p>
     </div>
   </div>
 </section>
@@ -811,6 +1027,7 @@
   <div class="wrap">
     <small>© <span id="year"></span> Eric Asiedu-Akrofi</small>
     <div class="foot-links">
+      <a href="mailto:akrofipoperic@gmail.com">Email</a>
       <a href="https://github.com/Kuame-Klaus" target="_blank" rel="noopener">GitHub</a>
       <a href="https://www.linkedin.com/in/eric-asiedu-akrofi-589b1815b" target="_blank" rel="noopener">LinkedIn</a>
     </div>
@@ -820,32 +1037,95 @@
 <script>
   document.getElementById('year').textContent = new Date().getFullYear();
 
+  // ---- Theme toggle (in-memory only, no localStorage) ----
+  const root = document.documentElement;
+  const themeBtn = document.getElementById('theme-toggle');
+  const themeDot = document.getElementById('theme-dot');
+  const themeLabel = document.getElementById('theme-label');
+  themeBtn.addEventListener('click', () => {
+    const isDark = root.getAttribute('data-theme') === 'dark';
+    root.setAttribute('data-theme', isDark ? 'light' : 'dark');
+    themeDot.textContent = isDark ? '☀' : '●';
+    themeLabel.textContent = isDark ? 'LIGHT' : 'DARK';
+  });
+
   // ---- Reveal on scroll ----
   const revealEls = document.querySelectorAll('.reveal');
   if ('IntersectionObserver' in window){
     const io = new IntersectionObserver((entries) => {
-      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('is-visible'); });
+      entries.forEach(e => {
+        if (e.isIntersecting){
+          e.target.classList.add('is-visible');
+          e.target.querySelectorAll('.skill-bar-fill').forEach(bar => {
+            bar.style.width = bar.dataset.pct + '%';
+          });
+        }
+      });
     }, { threshold: 0.12 });
     revealEls.forEach(el => io.observe(el));
   } else {
     revealEls.forEach(el => el.classList.add('is-visible'));
+    document.querySelectorAll('.skill-bar-fill').forEach(bar => { bar.style.width = bar.dataset.pct + '%'; });
   }
+
+  // ---- GSE ticker ----
+  const tickerTrack = document.getElementById('ticker-track');
+  const tickerDot = document.getElementById('ticker-dot');
+  const tickerLabelText = document.getElementById('ticker-label-text');
+  const GSE_SYMBOLS = ['MTNGH','GCB','EGH','GGBL','CAL','TOTAL','GOIL','SCB'];
+
+  function isGseOpen(){
+    const now = new Date();
+    const gmt = new Date(now.toLocaleString('en-US', { timeZone: 'GMT' }));
+    const day = gmt.getDay();
+    const hour = gmt.getHours();
+    return day >= 1 && day <= 5 && hour >= 10 && hour < 15;
+  }
+
+  function renderTicker(items){
+    if (!items.length){
+      tickerTrack.innerHTML = '<span class="ticker-item">GSE data unavailable right now.</span>';
+      return;
+    }
+    const open = isGseOpen();
+    tickerDot.classList.toggle('closed', !open);
+    tickerLabelText.textContent = open ? 'GSE · LIVE' : 'GSE · LAST CLOSE';
+
+    const html = items.map(it => {
+      const dir = it.change > 0 ? 'up' : it.change < 0 ? 'down' : 'flat';
+      const arrow = dir === 'up' ? '▲' : dir === 'down' ? '▼' : '·';
+      const chg = (it.change > 0 ? '+' : '') + it.change.toFixed(2);
+      return `<span class="ticker-item"><span class="sym">${it.name}</span><span class="px">GHS ${it.price.toFixed(2)}</span><span class="chg ${dir}">${arrow} ${chg}</span></span>`;
+    }).join('');
+    // duplicate for seamless loop
+    tickerTrack.innerHTML = html + html;
+  }
+
+  function loadTicker(){
+    fetch('https://dev.kwayisi.org/apis/gse/live')
+      .then(res => { if (!res.ok) throw new Error('GSE API error'); return res.json(); })
+      .then(data => {
+        const filtered = data.filter(d => GSE_SYMBOLS.includes(d.name));
+        renderTicker(filtered.length ? filtered : data.slice(0, 8));
+      })
+      .catch(() => {
+        tickerTrack.innerHTML = '<span class="ticker-item">Couldn\'t load GSE prices right now.</span>';
+      });
+  }
+  loadTicker();
+  setInterval(loadTicker, 60000);
 
   // ---- Fetch repos live from GitHub ----
   const GH_USER = 'Kuame-Klaus';
   const ledger = document.getElementById('ledger');
-  const repoCountEl = document.getElementById('repo-count');
 
   function fmtDate(iso){
     const d = new Date(iso);
     return d.toLocaleDateString('en-GB', { year:'numeric', month:'short' });
   }
 
-  function refCode(i){
-    return 'WP-' + String(i + 1).padStart(2, '0');
-  }
+  function refCode(i){ return 'WP-' + String(i + 1).padStart(2, '0'); }
 
-  // Decode base64 README content (UTF-8 safe) and pull out the first image reference
   function extractFirstImage(base64Content, owner, repo, branch){
     try {
       const md = decodeURIComponent(escape(atob(base64Content.replace(/\n/g, ''))));
@@ -853,12 +1133,9 @@
       if (!match) return null;
       let url = match[1];
       if (/^https?:\/\//i.test(url)) return url;
-      // relative path inside the repo — resolve against raw.githubusercontent.com
       url = url.replace(/^\.?\//, '');
       return `https://raw.githubusercontent.com/${owner}/${repo}/${branch}/${url}`;
-    } catch (e){
-      return null;
-    }
+    } catch (e){ return null; }
   }
 
   function loadThumbnail(repo){
@@ -871,51 +1148,195 @@
         const cell = ledger.querySelector(`[data-thumb-for="${CSS.escape(repo.name)}"]`);
         if (!cell) return;
         const img = new Image();
-        img.onload = () => {
-          cell.innerHTML = '';
-          img.className = 'thumb';
-          img.alt = '';
-          cell.appendChild(img);
-        };
+        img.onload = () => { cell.innerHTML = ''; img.className = 'thumb'; img.alt = ''; cell.appendChild(img); };
         img.onerror = () => {};
         img.src = url;
       })
       .catch(() => {});
   }
 
+  // Hand-written case studies for flagship projects; generic fallback for the rest
+  const CASE_STUDIES = {
+    'banking_valuation_ecobank_gh': {
+      problem: 'Wanted to test whether a full bank valuation could be built cleanly with Ghana-specific inputs (local tax, inflation, lending rates) rather than adapting a generic template.',
+      approach: 'Built a discounted dividend / excess-return banking model with GHS-denominated assumptions and sensitivity toggles.',
+      result: 'A working reference model I keep coming back to. Next step is layering in scenario stress-testing for rate shocks.'
+    },
+    'm-a-guiness-gh-to-fanmilk': {
+      problem: 'Guinness Ghana\'s move into FanMilk was a real, messy M&A case with limited public disclosure to work from.',
+      approach: 'Reconstructed a merger model from public filings and reasonable assumptions, including synergy and financing scenarios.',
+      result: 'Sharpened how I think about accretion and dilution in thin-disclosure markets, a skill I want to keep applying to African M&A.'
+    },
+    'pharmarcy_financial_modelling': {
+      problem: 'Wanted to model a small, cash-intensive retail business (a pharmacy) where working capital drives most of the risk.',
+      approach: 'Built a three-statement model with inventory and cash-conversion cycle as the central levers.',
+      result: 'A template I plan to adapt for other Ghanaian SME clients who need financing-ready projections.'
+    },
+    'top5vsindex': {
+      problem: 'Wanted to see whether a hand-picked GSE portfolio could be benchmarked the same rigorous way I\'d benchmark a global one.',
+      approach: 'Replicated an S&P 500 vs. top-5-stocks framework using GSE-listed names including MTN Ghana.',
+      result: 'Early days. The idea I want to build next is a rolling, auto-updating version of this comparison.'
+    },
+    'kk-mining-financial-model': {
+      problem: 'Mining companies have unusual cost structures (depletion, capex cycles) that generic models handle poorly.',
+      approach: 'Built a model with reserve depletion schedules and capex-linked production ramp assumptions.',
+      result: 'Good foundation, and I want to extend it with commodity-price scenario bands next.'
+    }
+  };
+
+  function getCaseStudy(repo){
+    const key = repo.name.toLowerCase();
+    const cs = CASE_STUDIES[key];
+    if (cs) return cs;
+    return {
+      problem: `Explored a real question in ${repo.language || 'this area'}: ${repo.description || 'a self-directed build to sharpen a specific analytical skill.'}`,
+      approach: `Built and iterated on it independently, treating it as a sandbox for techniques I want to bring into client work.`,
+      result: `Still evolving, a good candidate for a deeper write-up as I take it further.`
+    };
+  }
+
   fetch(`https://api.github.com/users/${GH_USER}/repos?sort=updated&per_page=100`)
-    .then(res => {
-      if (!res.ok) throw new Error('GitHub API error: ' + res.status);
-      return res.json();
-    })
+    .then(res => { if (!res.ok) throw new Error('GitHub API error: ' + res.status); return res.json(); })
     .then(repos => {
       const visible = repos.filter(r => !r.fork);
-      if (repoCountEl) repoCountEl.textContent = visible.length + ' public repos';
 
       if (!visible.length){
         ledger.innerHTML = '<p class="ledger-state">No public repositories found.</p>';
         return;
       }
 
-      ledger.innerHTML = visible.map((repo, i) => `
-        <a class="ledger-row" href="${repo.html_url}" target="_blank" rel="noopener">
+      ledger.innerHTML = visible.map((repo, i) => {
+        const cs = getCaseStudy(repo);
+        return `
+        <div class="ledger-row proj-row">
           <span class="thumb-placeholder" data-thumb-for="${repo.name}">${refCode(i)}</span>
           <span class="ref">${refCode(i)}</span>
           <span class="row-main">
-            <p class="name">${repo.name.replace(/[-_]/g, ' ')}</p>
+            <a class="name-link" href="${repo.html_url}" target="_blank" rel="noopener"><p class="name">${repo.name.replace(/[-_]/g, ' ')}</p></a>
             <p class="desc">${repo.description ? repo.description : 'No description provided.'}</p>
           </span>
           <span class="meta">${repo.language ? repo.language + '<br>' : ''}${fmtDate(repo.pushed_at)}</span>
-          <span class="arrow">→</span>
-        </a>
-      `).join('');
+          <a class="arrow arrow-link" href="${repo.html_url}" target="_blank" rel="noopener">→</a>
+          <button class="expand-btn" data-case-toggle="${i}" aria-expanded="false" aria-label="Show project story">+</button>
+        </div>
+        <div class="case-study" id="case-${i}">
+          <p><b>Problem</b><br>${cs.problem}</p>
+          <p><b>Approach</b><br>${cs.approach}</p>
+          <p><b>Result / next step</b><br>${cs.result}</p>
+        </div>
+        `;
+      }).join('');
 
-      // Progressively fetch a thumbnail from each repo's README, without blocking the list render
       visible.forEach(loadThumbnail);
+
+      // Wire up expand/collapse buttons (no inline handlers, avoids escaping issues)
+      ledger.querySelectorAll('.expand-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const i = btn.dataset.caseToggle;
+          const panel = document.getElementById(`case-${i}`);
+          const open = panel.classList.toggle('open');
+          btn.setAttribute('aria-expanded', open);
+          btn.textContent = open ? '−' : '+';
+        });
+      });
     })
     .catch(err => {
       ledger.innerHTML = `<p class="ledger-state">Couldn't load repos right now (${err.message}). <a href="https://github.com/${GH_USER}" target="_blank" rel="noopener">View on GitHub ↗</a></p>`;
     });
+
+  // ---- Full project gallery: 2-3 real images per repo, fetched live ----
+  const GALLERY_PROJECTS = [
+    { repo: 'Banking_Valuation_ECOBANK_GH', cap: 'Ecobank banking valuation model', images: [
+      'https://github.com/user-attachments/assets/8644260c-b3f1-4b2b-ba9d-c98b413b090c',
+      'https://github.com/user-attachments/assets/7e6a0e9a-2c2f-43d1-9bf5-a4f6c0629ca3',
+      'https://github.com/user-attachments/assets/4bbe6c9c-1f1a-4a97-8760-778ef05ed598' ] },
+    { repo: 'M-A-Guiness-GH-to-FANMILK', cap: 'Guinness Ghana / FanMilk M&A model', images: [
+      'https://github.com/user-attachments/assets/de088e65-3745-45ce-ac25-4ca7b8118c6d',
+      'https://github.com/user-attachments/assets/b1571e76-44e5-49e3-9588-3642c403de83',
+      'https://github.com/user-attachments/assets/d513f55d-ad7d-4adb-ad9d-ded8c1c4850e' ] },
+    { repo: 'Pharmarcy_Financial_Modelling', cap: 'Pharmacy financial model', images: [
+      'https://github.com/user-attachments/assets/39dca61e-973f-46e4-95d6-01c5f176e469',
+      'https://github.com/user-attachments/assets/f2c0f6f3-6acc-47f9-8782-4c5f579948a6',
+      'https://github.com/user-attachments/assets/32a7dd21-f477-42f4-81ac-2aa357422433' ] },
+    { repo: 'KK-Mining-Financial-Model', cap: 'Mining financial model', images: [
+      'https://github.com/user-attachments/assets/241d65ae-8911-4ade-b548-31f72da86975',
+      'https://github.com/user-attachments/assets/1fd2a2b8-6147-448c-8e0c-4ea079e0c06a',
+      'https://github.com/user-attachments/assets/5803a9e0-c693-481d-b237-47ebc65fb076' ] },
+    { repo: 'FP-A-15-Month-Financial-Plan-', cap: 'FP&A 15-month financial plan', images: [
+      'https://github.com/Kuame-Klaus/FP-A-15-Month-Financial-Plan-/assets/141528444/2f8b436c-23b7-425d-93e8-0f86f9016892',
+      'https://github.com/Kuame-Klaus/FP-A-15-Month-Financial-Plan-/assets/141528444/806e0455-a018-4890-88cf-476ef2ac77ae',
+      'https://github.com/Kuame-Klaus/FP-A-15-Month-Financial-Plan-/assets/141528444/688a79ce-ddb5-4342-9ac0-bd74262c4e23' ] },
+    { repo: 'TeslaEquity', cap: 'Tesla equity research', images: [] },
+    { repo: 'Top5vsIndex', cap: 'Portfolio vs. index analysis (GSE/S&P 500 framework)', images: [
+      'https://github.com/user-attachments/assets/b2cd59aa-dd55-42b8-8894-d1afb33d3b73',
+      'https://github.com/user-attachments/assets/1517764b-fa42-4b95-91ea-4073987c8eac',
+      'https://github.com/user-attachments/assets/2d056329-4520-4667-a206-432ba0db3b85' ] },
+    { repo: 'Sales_Marketing-PowerBi-Dashboard', cap: 'Sales & marketing Power BI dashboard', images: [
+      'https://github.com/Kuame-Klaus/Sales_MarketingDashboard/assets/141528444/0d803874-8af3-4c75-9e59-25f595f44ba4',
+      'https://github.com/Kuame-Klaus/Sales_MarketingDashboard/assets/141528444/59ec489a-4db2-48a3-b487-e71a95be5cd9',
+      'https://github.com/Kuame-Klaus/Sales_MarketingDashboard/assets/141528444/95fb226d-3b18-4fb9-83a2-bab9b21bb70c' ] },
+    { repo: 'Retail-Sales-Dashboard', cap: 'Retail sales dashboard', images: [
+      'https://github.com/Kuame-Klaus/P-L-and-Sales-Dashboard/assets/141528444/f7bd9ab9-19c6-403a-9fbc-2ef5429e79b6',
+      'https://github.com/Kuame-Klaus/P-L-and-Sales-Dashboard/assets/141528444/47c9d9c0-415e-407d-b6bf-0c85bc0f0c2a',
+      'https://github.com/Kuame-Klaus/P-L-and-Sales-Dashboard/assets/141528444/d639c82f-aa59-4d60-95ff-37ee8adb9a94' ] },
+    { repo: 'Financial-Statements-in-PowerBi', cap: 'Financial statements in Power BI', images: [
+      'https://github.com/Kuame-Klaus/Financial-Statements-in-PowerBi/assets/141528444/8ad34313-0c45-48df-8f30-602798787cb5',
+      'https://github.com/Kuame-Klaus/Financial-Statements-in-PowerBi/assets/141528444/5d94c23c-ae04-49a7-bf82-4f9a6d1c1955',
+      'https://github.com/Kuame-Klaus/Financial-Statements-in-PowerBi/assets/141528444/e3c88a6b-eef0-4f3d-b6fb-140db8a90ffa' ] },
+    { repo: 'DreamComfort---PowerPivot-DAX', cap: 'PowerPivot/DAX project', images: [
+      'https://github.com/Kuame-Klaus/DreamComfort/assets/141528444/de1f9c5d-cab4-4930-a1ce-4c7cddf0928e',
+      'https://github.com/Kuame-Klaus/DreamComfort/assets/141528444/6c24a861-1eb1-4383-999d-091983e5724e' ] },
+    { repo: 'PayPoint---Corporate-Performance-Analysis-', cap: 'Corporate performance analysis', images: [
+      'https://github.com/Kuame-Klaus/PayPoint---Corporate-Performance-Analysis-/assets/141528444/04053b7e-f1c6-482a-bbc2-d8752c256571',
+      'https://github.com/Kuame-Klaus/PayPoint---Corporate-Performance-Analysis-/assets/141528444/8f816577-b55a-4523-bf9f-c6f678d53f82',
+      'https://github.com/Kuame-Klaus/PayPoint---Corporate-Performance-Analysis-/assets/141528444/29e9b209-46c4-4002-982b-b469f4c50069' ] },
+    { repo: 'Covid19-DataCampProject', cap: 'COVID-19 data analysis (R)', images: [
+      'https://github.com/Kuame-Klaus/Covid-19-DataCamp-Project-/assets/141528444/eb600fcb-4787-49ee-9ac5-95bdfb38caba',
+      'https://github.com/Kuame-Klaus/Covid-19-DataCamp-Project-/assets/141528444/b0be4be6-456b-4044-af4f-4b2848b1cfec',
+      'https://github.com/Kuame-Klaus/Covid-19-DataCamp-Project-/assets/141528444/991c9f4f-a466-42bf-9d05-c44b8b02c38a' ] },
+    { repo: 'Climate_Change_In_Africa', cap: 'Climate change impacts in Africa (R)', images: [
+      'https://github.com/Kuame-Klaus/Climate_Change_In_Africa/assets/141528444/e16e89a6-6834-4577-ba53-92b4a57a3352',
+      'https://github.com/Kuame-Klaus/Climate_Change_In_Africa/assets/141528444/28c82e50-1cd3-4506-8a22-1870efc6cc86',
+      'https://github.com/Kuame-Klaus/Climate_Change_In_Africa/assets/141528444/d6a05d57-1a03-4cd1-9d50-102011967968' ] },
+    { repo: 'CyberThreats', cap: 'Cyber threats project', images: [
+      'https://github.com/user-attachments/assets/561ded17-aecf-4ebc-a3f3-24c225c6a9ef',
+      'https://github.com/user-attachments/assets/2ad42471-b774-4717-876e-2c220f8bf37e' ] },
+  ];
+
+  function buildGalleryCard(proj, index){
+    const url = `https://github.com/${GH_USER}/${proj.repo}`;
+    const ogImage = `https://opengraph.githubassets.com/1/${GH_USER}/${proj.repo}`;
+    // Prefer real screenshots pulled from the repo's README; fall back to GitHub's
+    // auto-generated repo preview only when a repo has no README images (e.g. TeslaEquity)
+    const imgs = proj.images && proj.images.length ? proj.images.slice(0, 3) : [ogImage];
+    const imgsHtml = imgs.map((src, i) => `<img src="${src}" alt="${proj.repo} screenshot ${i + 1}" loading="lazy" onerror="this.style.display='none'">`).join('');
+    return `
+      <a class="gallery-card" href="${url}" target="_blank" rel="noopener">
+        <div class="g-img-wrap${imgs.length > 1 ? ' multi' : ''}">
+          ${imgsHtml}
+        </div>
+        <div class="g-body">
+          <p class="g-tag">P-${String(index + 1).padStart(2,'0')}</p>
+          <p class="g-name">${proj.repo.replace(/[-_]+/g, ' ').trim()}</p>
+          <p class="g-cap">${proj.cap}</p>
+        </div>
+      </a>
+    `;
+  }
+
+  const fullGallery = document.getElementById('full-gallery');
+  if (fullGallery){
+    // Render the set twice back-to-back so the CSS animation (-50% translateX) loops seamlessly
+    const once = GALLERY_PROJECTS.map((p, i) => buildGalleryCard(p, i)).join('');
+    fullGallery.innerHTML = once + once;
+
+    // Pause the auto-scroll on touch (mobile has no :hover), resume on release
+    const galleryWrap = fullGallery.closest('.gallery-wrap');
+    if (galleryWrap){
+      galleryWrap.addEventListener('touchstart', () => fullGallery.classList.add('paused'), { passive: true });
+      galleryWrap.addEventListener('touchend', () => fullGallery.classList.remove('paused'), { passive: true });
+    }
+  }
 </script>
 
 </body>
