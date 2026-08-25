@@ -1072,8 +1072,8 @@
   const tickerTrack = document.getElementById('ticker-track');
   const tickerDot = document.getElementById('ticker-dot');
   const tickerLabelText = document.getElementById('ticker-label-text');
-  //const GSE_SYMBOLS = ['MTNGH','GCB','EGH','GGBL','CAL','TOTAL','GOIL','SCB'];
-  renderTicker(data);
+  const GSE_SYMBOLS = ['MTNGH','GCB','EGH','GGBL','CAL','TOTAL','GOIL','SCB'];
+  // enderTicker(data);
 
   function isGseOpen(){
     const now = new Date();
@@ -1106,8 +1106,8 @@
     fetch('https://dev.kwayisi.org/apis/gse/live')
       .then(res => { if (!res.ok) throw new Error('GSE API error'); return res.json(); })
       .then(data => {
-        //const filtered = data.filter(d => GSE_SYMBOLS.includes(d.name));
-        renderTicker(data);
+        const filtered = data.filter(d => GSE_SYMBOLS.includes(d.name));
+        //renderTicker(data);
         renderTicker(filtered.length ? filtered : data.slice(0, 8));
       })
       .catch(() => {
