@@ -640,6 +640,18 @@
   .gallery-card .g-name{ font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 0.92rem; margin: 0 0 4px; line-height:1.25; }
   .gallery-card .g-cap{ font-size: 12px; color: var(--muted); margin: 0; }
 
+  /* ---------- Project videos ---------- */
+  .video-grid{ display:grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 18px; }
+  .video-card{ margin:0; border: 3px solid var(--fg); border-radius: 6px; overflow:hidden; background: var(--bg); color: var(--fg); transition: transform .15s ease, box-shadow .15s ease; }
+  .video-card:hover{ transform: translateY(-4px); box-shadow: 6px 6px 0 var(--orange); }
+  .video-card .v-frame{ aspect-ratio: 16/9; background: #0B2545; border-bottom: 3px solid var(--fg); }
+  .video-card video{ width:100%; height:100%; display:block; object-fit: cover; background:#0B2545; }
+  .video-card .v-body{ padding: 12px 14px; }
+  .video-card .g-tag{ display:inline-block; font-family:'JetBrains Mono', monospace; font-size: 10px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color:#fff; background: var(--teal); padding: 2px 7px; border-radius: 3px; margin: 0 0 7px; }
+  .video-card .g-name{ font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 0.92rem; margin: 0 0 4px; line-height:1.25; }
+  .video-card .g-cap{ font-size: 12px; color: var(--muted); margin: 0; }
+  .video-card .g-cap a{ color: var(--fg); border-bottom: 2px solid var(--orange); text-decoration:none; font-weight:600; }
+
   /* ---------- Footer ---------- */
   footer.site{
     padding: 44px 0 60px;
@@ -671,6 +683,7 @@
       <a href="#experience">Experience</a>
       <a href="#projects">Projects</a>
       <a href="#gallery">Gallery</a>
+      <a href="#videos">Videos</a>
       <a href="#articles">Articles</a>
       <a href="#sankofa">Sankofa</a>
       <a href="#contact">Contact</a>
@@ -1019,6 +1032,194 @@
   <div class="gallery-wrap" aria-label="Project screenshot gallery, auto-scrolling">
     <div class="gallery-track" id="full-gallery">
       <span class="mono" style="padding-left:24px;">Loading gallery…</span>
+    </div>
+  </div>
+</section>
+
+<section class="section reveal" id="videos">
+  <div class="wrap">
+    <p class="section-label">Exhibits in Motion</p>
+    <h2 class="section-title">Project videos</h2>
+    <p class="muted" style="max-width:62ch;margin:-14px 0 28px;font-size:15px;">
+      Short motion walkthroughs of the projects above, built from real screenshots of each model, dashboard and report. Each video loads only when you scroll to it.
+    </p>
+    <div class="video-grid">
+      <figure class="video-card">
+        <div class="v-frame"><video class="lazy-video" controls muted playsinline preload="none" data-src="/assets/videos/cfs-freight.mp4" data-poster="/assets/videos/cfs-freight_poster.jpg" aria-label="US Freight in Motion motion video"></video></div>
+        <figcaption class="v-body">
+          <span class="g-tag">Power BI</span>
+          <p class="g-name">US Freight in Motion</p>
+          <p class="g-cap">Commodity Flow Survey 2012 and 2017 <a href="https://github.com/Kuame-Klaus/CFS-2017-PowerBI-Dashboard" target="_blank" rel="noopener">Repo &#8599;</a></p>
+        </figcaption>
+      </figure>
+      <figure class="video-card">
+        <div class="v-frame"><video class="lazy-video" controls muted playsinline preload="none" data-src="/assets/videos/ecobank-valuation.mp4" data-poster="/assets/videos/ecobank-valuation_poster.jpg" aria-label="Ecobank Ghana Valuation motion video"></video></div>
+        <figcaption class="v-body">
+          <span class="g-tag">BANK VALUATION MODEL</span>
+          <p class="g-name">Ecobank Ghana Valuation</p>
+          <p class="g-cap">Dividend discount and residual income models in Excel <a href="https://github.com/Kuame-Klaus/Banking_Valuation_ECOBANK_GH" target="_blank" rel="noopener">Repo &#8599;</a></p>
+        </figcaption>
+      </figure>
+      <figure class="video-card">
+        <div class="v-frame"><video class="lazy-video" controls muted playsinline preload="none" data-src="/assets/videos/climate-change-africa.mp4" data-poster="/assets/videos/climate-change-africa_poster.jpg" aria-label="Climate Change in Africa motion video"></video></div>
+        <figcaption class="v-body">
+          <span class="g-tag">DATA ANALYSIS IN R</span>
+          <p class="g-name">Climate Change in Africa</p>
+          <p class="g-cap">Regression and 2025 predictions <a href="https://github.com/Kuame-Klaus/Climate_Change_In_Africa" target="_blank" rel="noopener">Repo &#8599;</a></p>
+        </figcaption>
+      </figure>
+      <figure class="video-card">
+        <div class="v-frame"><video class="lazy-video" controls muted playsinline preload="none" data-src="/assets/videos/covid19-analysis.mp4" data-poster="/assets/videos/covid19-analysis_poster.jpg" aria-label="COVID 19 Early Spread motion video"></video></div>
+        <figcaption class="v-body">
+          <span class="g-tag">DATA ANALYSIS IN R</span>
+          <p class="g-name">COVID 19 Early Spread</p>
+          <p class="g-cap">DataCamp Data Analytics with R <a href="https://github.com/Kuame-Klaus/Covid19-DataCampProject" target="_blank" rel="noopener">Repo &#8599;</a></p>
+        </figcaption>
+      </figure>
+      <figure class="video-card">
+        <div class="v-frame"><video class="lazy-video" controls muted playsinline preload="none" data-src="/assets/videos/cyber-threats.mp4" data-poster="/assets/videos/cyber-threats_poster.jpg" aria-label="Global Cybersecurity Threats motion video"></video></div>
+        <figcaption class="v-body">
+          <span class="g-tag">DASHBOARD</span>
+          <p class="g-name">Global Cybersecurity Threats</p>
+          <p class="g-cap">Financial loss, affected users and defences <a href="https://github.com/Kuame-Klaus/CyberThreats" target="_blank" rel="noopener">Repo &#8599;</a></p>
+        </figcaption>
+      </figure>
+      <figure class="video-card">
+        <div class="v-frame"><video class="lazy-video" controls muted playsinline preload="none" data-src="/assets/videos/dream-comfort.mp4" data-poster="/assets/videos/dream-comfort_poster.jpg" aria-label="Dream Comfort Company motion video"></video></div>
+        <figcaption class="v-body">
+          <span class="g-tag">POWER PIVOT AND DAX</span>
+          <p class="g-name">Dream Comfort Company</p>
+          <p class="g-cap">Business and store performance <a href="https://github.com/Kuame-Klaus/DreamComfort---PowerPivot-DAX" target="_blank" rel="noopener">Repo &#8599;</a></p>
+        </figcaption>
+      </figure>
+      <figure class="video-card">
+        <div class="v-frame"><video class="lazy-video" controls muted playsinline preload="none" data-src="/assets/videos/esg-integration.mp4" data-poster="/assets/videos/esg-integration_poster.jpg" aria-label="ESG Integration Model motion video"></video></div>
+        <figcaption class="v-body">
+          <span class="g-tag">ESG FINANCIAL MODEL</span>
+          <p class="g-name">ESG Integration Model</p>
+          <p class="g-cap">ESG initiatives linked to forecasts and valuation <a href="https://github.com/Kuame-Klaus/ESG-Integration-Model" target="_blank" rel="noopener">Repo &#8599;</a></p>
+        </figcaption>
+      </figure>
+      <figure class="video-card">
+        <div class="v-frame"><video class="lazy-video" controls muted playsinline preload="none" data-src="/assets/videos/fpa-15-month-plan.mp4" data-poster="/assets/videos/fpa-15-month-plan_poster.jpg" aria-label="15 Month Financial Plan motion video"></video></div>
+        <figcaption class="v-body">
+          <span class="g-tag">FP&amp;A MODEL</span>
+          <p class="g-name">15 Month Financial Plan</p>
+          <p class="g-cap">Three statements, schedules and charts <a href="https://github.com/Kuame-Klaus/FP-A-15-Month-Financial-Plan-" target="_blank" rel="noopener">Repo &#8599;</a></p>
+        </figcaption>
+      </figure>
+      <figure class="video-card">
+        <div class="v-frame"><video class="lazy-video" controls muted playsinline preload="none" data-src="/assets/videos/financial-statements-powerbi.mp4" data-poster="/assets/videos/financial-statements-powerbi_poster.jpg" aria-label="Financial Statements in Power BI motion video"></video></div>
+        <figcaption class="v-body">
+          <span class="g-tag">POWER BI</span>
+          <p class="g-name">Financial Statements in Power BI</p>
+          <p class="g-cap">Income statement and balance sheet from a general ledger <a href="https://github.com/Kuame-Klaus/Financial-Statements-in-PowerBi" target="_blank" rel="noopener">Repo &#8599;</a></p>
+        </figcaption>
+      </figure>
+      <figure class="video-card">
+        <div class="v-frame"><video class="lazy-video" controls muted playsinline preload="none" data-src="/assets/videos/ias2-inventory.mp4" data-poster="/assets/videos/ias2-inventory_poster.jpg" aria-label="IAS 2 Inventory Model motion video"></video></div>
+        <figcaption class="v-body">
+          <span class="g-tag">IFRS MODEL</span>
+          <p class="g-name">IAS 2 Inventory Model</p>
+          <p class="g-cap">Inventory measurement and disclosure <a href="https://github.com/Kuame-Klaus/IAS-2-Inventory-Model" target="_blank" rel="noopener">Repo &#8599;</a></p>
+        </figcaption>
+      </figure>
+      <figure class="video-card">
+        <div class="v-frame"><video class="lazy-video" controls muted playsinline preload="none" data-src="/assets/videos/ifrs9-ecl.mp4" data-poster="/assets/videos/ifrs9-ecl_poster.jpg" aria-label="IFRS 9 Expected Credit Loss motion video"></video></div>
+        <figcaption class="v-body">
+          <span class="g-tag">IFRS MODEL</span>
+          <p class="g-name">IFRS 9 Expected Credit Loss</p>
+          <p class="g-cap">Illustrative example data <a href="https://github.com/Kuame-Klaus/IFRS-9---ECL-Loans-Portfolio-Model" target="_blank" rel="noopener">Repo &#8599;</a></p>
+        </figcaption>
+      </figure>
+      <figure class="video-card">
+        <div class="v-frame"><video class="lazy-video" controls muted playsinline preload="none" data-src="/assets/videos/mining-model.mp4" data-poster="/assets/videos/mining-model_poster.jpg" aria-label="Single Asset Mining Model motion video"></video></div>
+        <figcaption class="v-body">
+          <span class="g-tag">PROJECT MODEL</span>
+          <p class="g-name">Single Asset Mining Model</p>
+          <p class="g-cap">Gold mine cash flows, costs and sensitivities <a href="https://github.com/Kuame-Klaus/KK-Mining-Financial-Model" target="_blank" rel="noopener">Repo &#8599;</a></p>
+        </figcaption>
+      </figure>
+      <figure class="video-card">
+        <div class="v-frame"><video class="lazy-video" controls muted playsinline preload="none" data-src="/assets/videos/ifrs16-leases.mp4" data-poster="/assets/videos/ifrs16-leases_poster.jpg" aria-label="IFRS 16 Lease Portfolio motion video"></video></div>
+        <figcaption class="v-body">
+          <span class="g-tag">IFRS MODEL</span>
+          <p class="g-name">IFRS 16 Lease Portfolio</p>
+          <p class="g-cap">Illustrative example data <a href="https://github.com/Kuame-Klaus/Lease-Model---IFRS-16" target="_blank" rel="noopener">Repo &#8599;</a></p>
+        </figcaption>
+      </figure>
+      <figure class="video-card">
+        <div class="v-frame"><video class="lazy-video" controls muted playsinline preload="none" data-src="/assets/videos/guinness-fanmilk-ma.mp4" data-poster="/assets/videos/guinness-fanmilk-ma_poster.jpg" aria-label="Guinness Ghana and Fan Milk motion video"></video></div>
+        <figcaption class="v-body">
+          <span class="g-tag">M&amp;A MODEL</span>
+          <p class="g-name">Guinness Ghana and Fan Milk</p>
+          <p class="g-cap">Integrated merger model <a href="https://github.com/Kuame-Klaus/M-A-Guiness-GH-to-FANMILK" target="_blank" rel="noopener">Repo &#8599;</a></p>
+        </figcaption>
+      </figure>
+      <figure class="video-card">
+        <div class="v-frame"><video class="lazy-video" controls muted playsinline preload="none" data-src="/assets/videos/paypoint-analysis.mp4" data-poster="/assets/videos/paypoint-analysis_poster.jpg" aria-label="PayPoint Plc Performance motion video"></video></div>
+        <figcaption class="v-body">
+          <span class="g-tag">CORPORATE FINANCE</span>
+          <p class="g-name">PayPoint Plc Performance</p>
+          <p class="g-cap">History, forecast and DCF valuation <a href="https://github.com/Kuame-Klaus/PayPoint---Corporate-Performance-Analysis-" target="_blank" rel="noopener">Repo &#8599;</a></p>
+        </figcaption>
+      </figure>
+      <figure class="video-card">
+        <div class="v-frame"><video class="lazy-video" controls muted playsinline preload="none" data-src="/assets/videos/pharmacy-model.mp4" data-poster="/assets/videos/pharmacy-model_poster.jpg" aria-label="Ghana Pharmacy Group motion video"></video></div>
+        <figcaption class="v-body">
+          <span class="g-tag">STARTUP MODEL</span>
+          <p class="g-name">Ghana Pharmacy Group</p>
+          <p class="g-cap">5 year plan across 3 locations plus 15 month FP&amp;A <a href="https://github.com/Kuame-Klaus/Pharmarcy_Financial_Modelling" target="_blank" rel="noopener">Repo &#8599;</a></p>
+        </figcaption>
+      </figure>
+      <figure class="video-card">
+        <div class="v-frame"><video class="lazy-video" controls muted playsinline preload="none" data-src="/assets/videos/project-finance.mp4" data-poster="/assets/videos/project-finance_poster.jpg" aria-label="Project Finance Models motion video"></video></div>
+        <figcaption class="v-body">
+          <span class="g-tag">PROJECT FINANCE</span>
+          <p class="g-name">Project Finance Models</p>
+          <p class="g-cap">Data centre with renewable power <a href="https://github.com/Kuame-Klaus/Project-Finance---Financial-Modelling" target="_blank" rel="noopener">Repo &#8599;</a></p>
+        </figcaption>
+      </figure>
+      <figure class="video-card">
+        <div class="v-frame"><video class="lazy-video" controls muted playsinline preload="none" data-src="/assets/videos/retail-sales.mp4" data-poster="/assets/videos/retail-sales_poster.jpg" aria-label="Retail Sales Dashboard motion video"></video></div>
+        <figcaption class="v-body">
+          <span class="g-tag">POWER BI</span>
+          <p class="g-name">Retail Sales Dashboard</p>
+          <p class="g-cap">Mall sales analysis, 2017 to 2019 <a href="https://github.com/Kuame-Klaus/Retail-Sales-Dashboard" target="_blank" rel="noopener">Repo &#8599;</a></p>
+        </figcaption>
+      </figure>
+      <figure class="video-card">
+        <div class="v-frame"><video class="lazy-video" controls muted playsinline preload="none" data-src="/assets/videos/sales-marketing.mp4" data-poster="/assets/videos/sales-marketing_poster.jpg" aria-label="Sales and Marketing Dashboard motion video"></video></div>
+        <figcaption class="v-body">
+          <span class="g-tag">POWER BI</span>
+          <p class="g-name">Sales and Marketing Dashboard</p>
+          <p class="g-cap">Sales by product, region and country <a href="https://github.com/Kuame-Klaus/Sales_Marketing-PowerBi-Dashboard" target="_blank" rel="noopener">Repo &#8599;</a></p>
+        </figcaption>
+      </figure>
+      <figure class="video-card">
+        <div class="v-frame"><video class="lazy-video" controls muted playsinline preload="none" data-src="/assets/videos/gse-top5.mp4" data-poster="/assets/videos/gse-top5_poster.jpg" aria-label="Top 5 Stocks vs GSE Index motion video"></video></div>
+        <figcaption class="v-body">
+          <span class="g-tag">INVESTMENT ANALYSIS</span>
+          <p class="g-name">Top 5 Stocks vs GSE Index</p>
+          <p class="g-cap">GHS 100,000 equal weight portfolio <a href="https://github.com/Kuame-Klaus/TOP-5-STOCKS-vs-GSE-INDEX" target="_blank" rel="noopener">Repo &#8599;</a></p>
+        </figcaption>
+      </figure>
+      <figure class="video-card">
+        <div class="v-frame"><video class="lazy-video" controls muted playsinline preload="none" data-src="/assets/videos/tesla-equity.mp4" data-poster="/assets/videos/tesla-equity_poster.jpg" aria-label="Tesla Equity Research motion video"></video></div>
+        <figcaption class="v-body">
+          <span class="g-tag">EQUITY RESEARCH</span>
+          <p class="g-name">Tesla Equity Research</p>
+          <p class="g-cap">Ratio analysis and DCF valuation <a href="https://github.com/Kuame-Klaus/TeslaEquity" target="_blank" rel="noopener">Repo &#8599;</a></p>
+        </figcaption>
+      </figure>
+      <figure class="video-card">
+        <div class="v-frame"><video class="lazy-video" controls muted playsinline preload="none" data-src="/assets/videos/sp500-top5.mp4" data-poster="/assets/videos/sp500-top5_poster.jpg" aria-label="Top 5 Stocks vs S&amp;P 500 motion video"></video></div>
+        <figcaption class="v-body">
+          <span class="g-tag">INVESTMENT ANALYSIS</span>
+          <p class="g-name">Top 5 Stocks vs S&amp;P 500</p>
+          <p class="g-cap">Apple, NVIDIA, Microsoft, Amazon and Meta <a href="https://github.com/Kuame-Klaus/Top5vsIndex" target="_blank" rel="noopener">Repo &#8599;</a></p>
+        </figcaption>
+      </figure>
     </div>
   </div>
 </section>
@@ -1376,6 +1577,18 @@
       galleryWrap.addEventListener('touchend', () => fullGallery.classList.remove('paused'), { passive: true });
     }
   }
+
+  // ---- Project videos: attach poster and source only when near the viewport ----
+  (function(){
+    const vids = document.querySelectorAll('video.lazy-video');
+    const load = v => { if (v.dataset.loaded) return; v.poster = v.dataset.poster; v.src = v.dataset.src; v.preload = 'metadata'; v.dataset.loaded = '1'; };
+    if ('IntersectionObserver' in window){
+      const vio = new IntersectionObserver((entries) => {
+        entries.forEach(e => { if (e.isIntersecting){ load(e.target); vio.unobserve(e.target); } });
+      }, { rootMargin: '300px 0px' });
+      vids.forEach(v => vio.observe(v));
+    } else { vids.forEach(load); }
+  })();
 </script>
 
 </body>
