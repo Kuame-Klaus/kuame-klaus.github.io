@@ -3,7 +3,12 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Eric Asiedu-Akrofi | Portfolio</title>
+<title>Eric Asiedu-Akrofi | Portfolio, Projects and LinkedIn Posts</title>
+<meta name="description" content="Portfolio of Eric Asiedu-Akrofi, chartered accountant and data and technology risk analyst in Accra: projects, gallery, videos, articles and recent LinkedIn posts.">
+<meta property="og:title" content="Eric Asiedu-Akrofi | Portfolio">
+<meta property="og:description" content="Projects, gallery, videos, articles and recent LinkedIn posts from Eric Asiedu-Akrofi.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://kuame-klaus.github.io/">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
@@ -640,6 +645,12 @@
   .gallery-card .g-name{ font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 0.92rem; margin: 0 0 4px; line-height:1.25; }
   .gallery-card .g-cap{ font-size: 12px; color: var(--muted); margin: 0; }
 
+  /* ---------- LinkedIn posts ---------- */
+  .linkedin-wrap{ background: var(--card); border-top: 3px solid var(--fg); border-bottom: 3px solid var(--fg); padding: 22px 0; }
+  .linkedin-wrap .wrap{ min-height: 120px; }
+  .linkedin-more{ display:inline-block; margin-top:18px; font-family:'JetBrains Mono',monospace; font-size:13px; font-weight:600; color: var(--orange); text-decoration:none; border-bottom:2px solid var(--orange); }
+  .linkedin-more:hover{ color: var(--gold); border-color: var(--gold); }
+  @media (max-width:640px){ .linkedin-wrap{ padding:14px 0; } }
   /* ---------- Project videos ---------- */
   .video-grid{ display:grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 18px; }
   .video-card{ margin:0; border: 3px solid var(--fg); border-radius: 6px; overflow:hidden; background: var(--bg); color: var(--fg); transition: transform .15s ease, box-shadow .15s ease; }
@@ -683,6 +694,7 @@
       <a href="#experience">Experience</a>
       <a href="#projects">Projects</a>
       <a href="#gallery">Gallery</a>
+      <a href="#linkedin">LinkedIn Posts</a>
       <a href="#videos">Videos</a>
       <a href="#articles">Articles</a>
       <a href="#sankofa">Sankofa</a>
@@ -1036,10 +1048,24 @@
   </div>
 </section>
 
+<section class="section reveal" id="linkedin">
+  <div class="wrap">
+    <p class="section-label">From the Feed</p>
+    <h2 class="section-title">LinkedIn Posts</h2>
+  </div>
+  <div class="linkedin-wrap" aria-label="Recent LinkedIn posts">
+    <div class="wrap">
+      <script src="https://elfsightcdn.com/platform.js" async></script>
+      <div class="elfsight-app-67075f53-d27b-4ecb-8780-fd42968894fb" data-elfsight-app-lazy></div>
+      <a class="linkedin-more" href="https://www.linkedin.com/in/eric-asiedu-akrofi-589b1815b" target="_blank" rel="noopener">View all on LinkedIn &rarr;</a>
+    </div>
+  </div>
+</section>
+
 <section class="section reveal" id="videos">
   <div class="wrap">
     <p class="section-label">Exhibits in Motion</p>
-    <h2 class="section-title">Project videos</h2>
+    <h2 class="section-title">Project Videos</h2>
     <p class="muted" style="max-width:62ch;margin:-14px 0 28px;font-size:15px;">
       Short motion walkthroughs of the projects above, built from real screenshots of each model, dashboard and report. Each video loads only when you scroll to it.
     </p>
@@ -1484,7 +1510,7 @@
       ledger.innerHTML = `<p class="ledger-state">Couldn't load repos right now (${err.message}). <a href="https://github.com/${GH_USER}" target="_blank" rel="noopener">View on GitHub ↗</a></p>`;
     });
 
-  // ---- Full project gallery: 2-3 real images per repo, fetched live ----
+  // ---- Full project gallery: 2-3 real images per repo, loaded from a fixed list of repo images ----
   const GALLERY_PROJECTS = [
     { repo: 'Banking_Valuation_ECOBANK_GH', cap: 'Ecobank banking valuation model', images: [
       'https://github.com/user-attachments/assets/8644260c-b3f1-4b2b-ba9d-c98b413b090c',
